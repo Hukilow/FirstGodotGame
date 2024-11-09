@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c3524v2as50ou"]
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -15.0
+offset_top = -8.0
+offset_right = 1164.0
+offset_bottom = 658.0
+color = Color(1, 1, 0.329412, 1)
