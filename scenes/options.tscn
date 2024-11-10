@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3 uid="uid://oe778dkkhiqe"]
+
+[ext_resource type="Script" path="res://scenes/options.gd" id="1_osrqe"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_osrqe")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21, 0.063, 0.06545, 1)
+
+[node name="TitleMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_right = 58.0
+offset_bottom = 123.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 100
+
+[node name="Title" type="Label" parent="TitleMargin"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "OPTION"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -20.0
+offset_right = 52.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScreenMode" type="MenuBar" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScreenMode" type="PopupMenu" parent="CenterContainer/VBoxContainer/ScreenMode"]
+auto_translate_mode = 1
+item_count = 3
+item_0/text = "Fullscreen"
+item_1/text = "Borderless"
+item_1/id = 1
+item_2/text = "Windowed"
+item_2/id = 2
+
+[node name="Resolution" type="MenuBar" parent="CenterContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Resolution" type="PopupMenu" parent="CenterContainer/VBoxContainer/Resolution"]
+item_count = 4
+item_0/text = "1920x1080"
+item_1/text = "1280x720"
+item_1/id = 1
+item_2/text = "1024x768"
+item_2/id = 2
+item_3/text = "800x600"
+item_3/id = 3
+
+[node name="BackMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 116.0
+grow_vertical = 0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="BackButton" type="Button" parent="BackMargin"]
+layout_mode = 2
+text = "BACK"
+
+[connection signal="id_pressed" from="CenterContainer/VBoxContainer/ScreenMode/ScreenMode" to="." method="_on_screen_mode_id_pressed"]
+[connection signal="id_pressed" from="CenterContainer/VBoxContainer/Resolution/Resolution" to="." method="_on_resolution_id_pressed"]
+[connection signal="pressed" from="BackMargin/BackButton" to="." method="_on_back_button_pressed"]
