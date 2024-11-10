@@ -4,9 +4,9 @@ var menuScene := load("res://scenes/menu.tscn")
 var list = [DisplayServer.WINDOW_MODE_FULLSCREEN,DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN,DisplayServer.WINDOW_MODE_WINDOWED]
 
 func _ready() -> void:
-	_verifyMode()
+	verifyMode()
 
-func _verifyMode() -> void:
+func verifyMode() -> void:
 	#Display the resolution menu if window mode in windowed
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN :
 		$CenterContainer/VBoxContainer/Resolution.visible = false
@@ -22,7 +22,7 @@ func _verifyMode() -> void:
 func _on_screen_mode_id_pressed(id: int) -> void:
 	#Set the display mode and verify 
 	DisplayServer.window_set_mode(list[id])
-	_verifyMode()
+	verifyMode()
 
 
 func _on_resolution_id_pressed(id: int) -> void:
