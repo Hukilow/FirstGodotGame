@@ -18,7 +18,7 @@ var height := Global.height
 
 var source_id_general_tileset := 0
 var source_id_fournitures_tileset := 1
-var base_grass_atlas = [Vector2i(5,0),Vector2i(6,1),Vector2i(6,0),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1)]
+var base_grass_atlas = [Vector2i(5,1),Vector2i(5,0),Vector2i(6,1),Vector2i(6,0)]
 var base_water_atlas = Vector2i(5,6)
 var sand_atlas = Vector2i(5,3)
 var sand1_atlas = Vector2i(5,4)
@@ -43,9 +43,6 @@ func _process(_delta: float) -> void:
 	if generateTerrain:
 		generateTerrain = false
 		generate_world_and_water()
-		var script1 = preload("res://scenes/tile_map_layer_2.gd")
-		var instance = script1.new()
-		instance.generation_top_layer($".")
 	if clearTerrain:
 		clearTerrain = false
 		clear()
@@ -73,7 +70,10 @@ func generate_world_and_water():
 			elif noise_value >= sand1_Threshold:
 				set_cell(pos, source_id_general_tileset, sand1_atlas)
 			elif noise_value >= base_grass_Threshold:
-				set_cell(pos, source_id_general_tileset, base_grass_atlas[_rng.randi_range(0,6)])
+				if _rng.randi_range(0,12) < 10:
+					set_cell(pos, source_id_general_tileset, base_grass_atlas[0])
+				else:
+					set_cell(pos, source_id_general_tileset, base_grass_atlas[_rng.randi_range(1,3)])
 				if noise.get_noise_2d(_i, _j + 1) <= base_grass_Threshold:
 					set_cell(pos, source_id_general_tileset, mountain_up)
 				if noise.get_noise_2d(_i, _j - 1) <= base_grass_Threshold:

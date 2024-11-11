@@ -23,10 +23,11 @@ func _process(delta: float) -> void:
 	pass
 
 func generation_top_layer(tilemap):
+	print("aaaa")
 	for _i in range(-width, width):
 		for _j in range(-height, height):
 			var pos = Vector2(_i, _j)
 			var tile_coords = tilemap.get_cell_atlas_coords(pos)
-			if tile_coords == Vector2i(5,1) or tile_coords == Vector2i(5,0):
-				$".".set_cell(pos, source_id_general_tileset, Vector2i(8,4))
+			set_cell(pos, source_id_general_tileset, Vector2i(8,4))
+				
 				
