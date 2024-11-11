@@ -9,7 +9,6 @@ var sand1_atlas = Vector2i(5,4)
 var herb_atlas = Vector2i(4,1)
 var mountain_atlas = Vector2i(18,4)
 
-var _rng = RandomNumberGenerator.new()
 var width := Global.width
 var height := Global.height
 
