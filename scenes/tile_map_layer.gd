@@ -1,56 +1,84 @@
+@tool # crée catégore pour gérer génération map
+
 extends TileMapLayer
 
-var width := 150
-var height := 150
+@export var generateTerrain : bool
+@export var clearTerrain : bool
+var width := Global.width
+var height := Global.height
+
+# plus c'est bas plus y en a
+@export var base_water_Threshold := -0.455 
+@export var sand_Threshold := -0.470
+@export var sand1_Threshold := -0.485
+@export var base_grass_Threshold := -0.73
+@export var mountain_Threshold := -1.0
+@export var herb_Threshold := 0.0
+
 
 var source_id_general_tileset := 0
 var source_id_fournitures_tileset := 1
-var base_grass_atlas = Vector2i(5,1)
+var base_grass_atlas = [Vector2i(5,0),Vector2i(6,1),Vector2i(6,0),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1)]
 var base_water_atlas = Vector2i(5,6)
 var sand_atlas = Vector2i(5,3)
 var sand1_atlas = Vector2i(5,4)
 var herb_atlas = Vector2i(4,1)
+var mountain_atlas = Vector2i(18,4)
+var mountain_up = Vector2i(13,14)
+var mountain_down = Vector2i(18,5)
+var mountain_right = Vector2i(14,14)
+var mountain_left = Vector2i(15,14)
+
 
 var _rng = RandomNumberGenerator.new()
-var _noise = FastNoiseLite.new() 
+@export var TerrainSeed := 0
 
 var RANGE = 200
 var tree_gen = true
 
 func _ready():
-	generate_world_and_water()
+	pass
 	
+func _process(_delta: float) -> void:
+	if generateTerrain:
+		generateTerrain = false
+		generate_world_and_water()
+		var script1 = preload("res://scenes/tile_map_layer_2.gd")
+		var instance = script1.new()
+		instance.generation_top_layer($".")
+	if clearTerrain:
+		clearTerrain = false
+		clear()
+	
+
+
 func generate_world_and_water():
-	_noise.seed = randi() % 10
-	_noise.fractal_octaves = 2
-	_noise.fractal_lacunarity = 1.575
-	_noise.frequency = 0.03
-	_noise.noise_type = 3
+	var noise = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_CELLULAR
 	
-	var center = Vector2(0, 0)  # Position centrale de l'île
+	if TerrainSeed == 0:
+		noise.seed = _rng.randi()
+	else:
+		noise.seed = TerrainSeed
 	
 	for _i in range(-width, width):
 		for _j in range(-height, height):
 			var pos = Vector2(_i, _j)
-			var distance = pos.distance_to(center)
-			
-			# Utiliser une atténuation pour la distance au centre
-			var distance_factor = clamp(1.0 - (distance / RANGE), 0.0, 1.0)
-			var noise_value = _noise.get_noise_2d(_i, _j) * distance_factor
-			
-			if noise_value < -0.3:
+			var noise_value = noise.get_noise_2d(_i, _j)
+
+			if noise_value > base_water_Threshold:
 				set_cell(pos, source_id_general_tileset, base_water_atlas)
-			elif noise_value > -0.3 && noise_value <= -0.1:
-				set_cell(pos, source_id_general_tileset, base_water_atlas)
-			elif noise_value > -0.1 && noise_value <= 0:
-				set_cell(pos, source_id_general_tileset, base_grass_atlas)
-			elif noise_value > 0 && noise_value <= 0.1:
-				set_cell(pos, source_id_general_tileset, base_grass_atlas)
-			elif noise_value > 0.1 && noise_value <= 0.25:
-				set_cell(pos, source_id_general_tileset, base_grass_atlas)
-			elif noise_value > 0.25:
-				set_cell(pos, source_id_general_tileset, base_grass_atlas)
-				
-				# Génération d'arbres
-				if tree_gen and randi() % 3 == 1:
-					set_cell(pos, source_id_general_tileset, base_grass_atlas)
+			elif noise_value >= sand_Threshold:
+				set_cell(pos, source_id_general_tileset, sand_atlas)
+			elif noise_value >= sand1_Threshold:
+				set_cell(pos, source_id_general_tileset, sand1_atlas)
+			elif noise_value >= base_grass_Threshold:
+				set_cell(pos, source_id_general_tileset, base_grass_atlas[_rng.randi_range(0,6)])
+				if noise.get_noise_2d(_i, _j + 1) <= base_grass_Threshold:
+					set_cell(pos, source_id_general_tileset, mountain_up)
+				if noise.get_noise_2d(_i, _j - 1) <= base_grass_Threshold:
+					set_cell(pos, source_id_general_tileset, mountain_down)
+			elif noise_value >= mountain_Threshold:
+				set_cell(pos, source_id_general_tileset, mountain_atlas)
+			
+			
