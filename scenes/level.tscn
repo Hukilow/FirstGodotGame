@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://7ue0q13ko71i"]
+[gd_scene load_steps=21 format=4 uid="uid://7ue0q13ko71i"]
 
 [ext_resource type="Script" path="res://scenes/level.gd" id="1_0wyc1"]
 [ext_resource type="Texture2D" uid="uid://debw8ltrmpi4o" path="res://assets/tilemap/Solaria Demo Tiles.png" id="2_uxpwh"]
@@ -8,6 +8,13 @@
 [ext_resource type="Script" path="res://scenes/pathfinding.gd" id="7_y7nj1"]
 [ext_resource type="PackedScene" uid="uid://oqadgr7yutja" path="res://scenes/npc.tscn" id="8_ck0ei"]
 [ext_resource type="Script" path="res://scenes/item_manager.gd" id="8_igbyy"]
+[ext_resource type="PackedScene" path="res://scenes/npc.tscn" id="8_ck0ei"]
+[ext_resource type="Script" path="res://scenes/ui.gd" id="9_2md7v"]
+[ext_resource type="Script" path="res://scenes/panel_bottom.gd" id="10_nxlwn"]
+[ext_resource type="Script" path="res://scenes/build.gd" id="11_dp04p"]
+[ext_resource type="Texture2D" uid="uid://fu8bgqivntee" path="res://assets/building/maison.png" id="12_1os00"]
+[ext_resource type="Texture2D" uid="uid://ddueh7n4ekp6x" path="res://icon.svg" id="12_em6qe"]
+[ext_resource type="Script" path="res://scenes/player_build.gd" id="14_j5x1a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ynvl"]
 texture = ExtResource("2_uxpwh")
@@ -493,3 +500,215 @@ script = ExtResource("7_y7nj1")
 light_mask = 4
 visibility_layer = 4
 position = Vector2(52, -7)
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("9_2md7v")
+
+[node name="Panel_bottom" type="Panel" parent="UI"]
+anchors_preset = -1
+anchor_top = 0.95
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 2.0
+script = ExtResource("10_nxlwn")
+
+[node name="btn_build" type="Button" parent="UI/Panel_bottom"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.333333
+anchor_bottom = 1.0
+text = "Build"
+
+[node name="btn_assign" type="Button" parent="UI/Panel_bottom"]
+layout_mode = 0
+anchor_left = 0.333333
+anchor_right = 0.666667
+anchor_bottom = 1.0
+text = "Assign"
+
+[node name="btn_work" type="Button" parent="UI/Panel_bottom"]
+layout_mode = 0
+anchor_left = 0.666667
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Work"
+
+[node name="Build" type="Panel" parent="UI"]
+visible = false
+clip_contents = true
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.7
+grow_horizontal = 2
+localize_numeral_system = false
+script = ExtResource("11_dp04p")
+
+[node name="house" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.2
+anchor_bottom = 0.333333
+text = "House"
+icon = ExtResource("12_1os00")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="scierie" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.4
+anchor_bottom = 0.333333
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build3" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_right = 0.6
+anchor_bottom = 0.333333
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build4" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_right = 0.8
+anchor_bottom = 0.333333
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build5" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.333333
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build6" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.333333
+anchor_right = 0.2
+anchor_bottom = 0.666667
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build7" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.333333
+anchor_right = 0.4
+anchor_bottom = 0.666667
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build8" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.333333
+anchor_right = 0.6
+anchor_bottom = 0.666667
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build9" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.333333
+anchor_right = 0.8
+anchor_bottom = 0.666667
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build10" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.333333
+anchor_right = 1.0
+anchor_bottom = 0.666667
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build11" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.666667
+anchor_right = 0.2
+anchor_bottom = 1.0
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build12" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.666667
+anchor_right = 0.4
+anchor_bottom = 1.0
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="btn_build13" type="Button" parent="UI/Build"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.666667
+anchor_right = 0.6
+anchor_bottom = 1.0
+text = "Build"
+icon = ExtResource("12_em6qe")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="Player_build" type="Node2D" parent="."]
+script = ExtResource("14_j5x1a")
+
+[connection signal="pressed" from="UI/Build/house" to="Player_build" method="_on_house_pressed"]
+[connection signal="pressed" from="UI/Build/scierie" to="Player_build" method="_on_scierie_pressed"]
