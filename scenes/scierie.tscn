@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://du015bry2jj5g"]
+
+[ext_resource type="Texture2D" uid="uid://dkuil8ghtjcsw" path="res://assets/building/scierie.png" id="1_lakqb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iw0xk"]
+size = Vector2(44.5, 58)
+
+[node name="scierie" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -4)
+scale = Vector2(0.0577393, 0.0754395)
+texture = ExtResource("1_lakqb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0.75, -1)
+shape = SubResource("RectangleShape2D_iw0xk")

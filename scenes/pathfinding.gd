@@ -14,7 +14,7 @@ var path = []
 func _ready() -> void:
 	initPathFinding()
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if calculate:
 		calculate = false
 		initPathFinding()
