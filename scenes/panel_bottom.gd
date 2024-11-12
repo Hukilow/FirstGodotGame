@@ -11,7 +11,7 @@ func _ready() -> void:
 	for button in buttons:
 		button.connect("pressed", onButtonPressed.bind(button))
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if reset:
 		reset = false
 		loadButtons()

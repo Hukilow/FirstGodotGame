@@ -3,7 +3,7 @@ extends Node
 enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2}
 var itemCategories = ["Item","Trees","Food"]
 
-var treesPrototypes = []
+var itemPrototypes = []
 
 var itemsInWorld = []
 
@@ -22,7 +22,7 @@ var mountain_atlas = Vector2i(18,4)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	LoadTrees()
-	SpawnItemWorld(treesPrototypes[3],0.1)
+	SpawnItemWorld(itemPrototypes[3],0.1)
 	pass # Replace with function body.
 
 
@@ -30,15 +30,37 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
-func WorldtoMapPosition(posx:int,posy:int)->Vector2:
-	return Vector2(posx * 16 + 8, posy * 16 + 8)
+func MapToWorldPosition(mapPosX : int, mapPosY : int) -> Vector2:
+	return Vector2(mapPosX * 16 + 8, mapPosY * 16 + 8)
 	
+static func WorldToMapPosition(worldPos : Vector2) -> Vector2i:
+	return Vector2i(worldPos.x / 16, worldPos.y / 16)
+	
+func RemoveItemFromWorld(item):
+	remove_child(item)
+	itemsInWorld.erase(item)
+
+	
+func SpawnItemByName(itemName : String, amount: int, mapPosition : Vector2i):
+	var newItem
+	
+	for item in itemPrototypes:
+		if item.get_path() == itemName:
+			newItem = item.instantiate()
+			newItem.count = amount
+			
+	if newItem != null:
+		add_child(newItem)
+		itemsInWorld.append(newItem)
+		newItem.position = MapToWorldPosition(mapPosition.x, mapPosition.y)
+
 
 func SpawnItem(item, mapPosition):
 	var newItem = item.instantiate()
 	add_child(newItem)
 	itemsInWorld.append(newItem)
-	newItem.position = WorldtoMapPosition(mapPosition.x,mapPosition.y)
+	newItem.position = MapToWorldPosition(mapPosition.x, mapPosition.y)
+
 
 func SpawnItemWorld(item, odd):
 	for _i in range(-width+5, width-5):
@@ -69,6 +91,13 @@ func FindNearestItem(itemCategory: ItemCategory, worldPos: Vector2):
 			
 func IsItemInCategory(item, itemCategory):
 	return item.is_in_group(itemCategories[itemCategory])
+	
+func LoadItemPrototypes():
+	var allFileNames = _dir_contents("res://Item/", ".tscn")
+	for fileName in allFileNames:
+		itemPrototypes.append(load(fileName))
+		print(fileName)
+
 
 func LoadTrees():
 	var path = "res://Items/TreeAndBushs"
@@ -80,5 +109,25 @@ func LoadTrees():
 		if file_name == "":
 			break
 		elif file_name.ends_with(".tscn"):
-			treesPrototypes.append(load(path + "/" + file_name))
+			itemPrototypes.append(load(path + "/" + file_name))
 	dir.list_dir_end()
+	
+	
+static func _dir_contents(path, suffix) -> Array[String]:
+	var dir = DirAccess.open(path)
+	if !dir:
+		print("An error occurred when trying to access path: %s" % [path])
+		return []
+
+	var files: Array[String]
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		file_name = file_name.replace('.remap', '') 
+		if dir.current_is_dir():
+			files.append_array(_dir_contents("%s/%s" % [path, file_name], suffix))
+		elif file_name.ends_with(suffix):
+			files.append("%s/%s" % [path, file_name])
+		file_name = dir.get_next()
+		
+	return files

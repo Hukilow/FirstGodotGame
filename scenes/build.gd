@@ -13,7 +13,7 @@ func _ready() -> void:
 	arrangeSelf()
 	arrangeButtons()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if reset:
 		reset = false
 		loadButtons()

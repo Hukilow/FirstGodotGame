@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://oqadgr7yutja"]
+[gd_scene load_steps=24 format=3 uid="uid://br7bpu2oq6hqv"]
 
 [ext_resource type="Script" path="res://npc.gd" id="1_fapna"]
 [ext_resource type="Texture2D" uid="uid://cf2vcff4uohgl" path="res://assets/character/Prototype_Character.png" id="2_skhyu"]
+[ext_resource type="Script" path="res://scenes/npc_ai.gd" id="3_4hi7a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgxjj"]
 atlas = ExtResource("2_skhyu")
@@ -173,3 +174,6 @@ flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cs7jo")
+
+[node name="NPC_AI" type="Node" parent="."]
+script = ExtResource("3_4hi7a")

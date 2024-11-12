@@ -7,16 +7,17 @@ extends CharacterBody2D
 const SPEED = 300.0
 var path = []
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("click"):
-		var pos = position / terrain.rendering_quadrant_size
-		var target_pos = get_global_mouse_position() / terrain.rendering_quadrant_size
-		path = pathfinding.requestPath(pos, target_pos)
+func SetMoveTarget(worldPos : Vector2):
+	var pos = position / terrain.rendering_quadrant_size
+	var targetPos = worldPos / terrain.rendering_quadrant_size
 	
-	if Input.is_action_just_pressed("ui_accept"):
-		var pos = position / terrain.rendering_quadrant_size
-		var target_pos = itemManager.FindNearestItem(itemManager.ItemCategory.WOOD, position).position / terrain.rendering_quadrant_size
-		path = pathfinding.requestPath(pos, target_pos)
+	path = pathfinding.requestPath(pos, targetPos)
+	
+func HasReachedDestination():
+	return len(path) == 0
+
+
+func _physics_process(delta: float) -> void:
 		
 	if len(path) > 0:
 		var direction = global_position.direction_to(path[0])

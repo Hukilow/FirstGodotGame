@@ -21,13 +21,18 @@ func _process(_delta: float) -> void:
 		requestPath(start, end)
 		
 func requestPath(start: Vector2i, end: Vector2i):
-	path = astar_grid.get_point_path(start,end)
+	if -Global.width < start.x and start.x < Global.width and -Global.height < start.y and start.y < Global.height and -Global.width < end.x and end.x < Global.width and -Global.height < end.y and end.y < Global.height:
 	
-	for i in range(len(path)):
-		path[i] += Vector2(terrain.rendering_quadrant_size/2, terrain.rendering_quadrant_size/2)
-	
-	queue_redraw()
-	return path
+		path = astar_grid.get_point_path(start, end)
+		
+		for i in range(len(path)):
+			path[i] += Vector2(terrain.rendering_quadrant_size / 2, terrain.rendering_quadrant_size / 2)
+		
+		queue_redraw()
+		return path
+	else:
+		return []
+
 	
 func initPathFinding():
 	# Ajuster la région pour couvrir toute la map centrée en (0,0)
