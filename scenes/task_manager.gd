@@ -20,3 +20,7 @@ func AddTask(taskType, targetItem):
 	if taskType == Task.TaskType.Harvest:
 		newTask.InitHarvestPlantTask(targetItem)
 		taskQueue.append(newTask)
+		
+	if taskType == Task.TaskType.PickUp:
+		newTask.InitPickUpTask(targetItem)
+		taskQueue.append(newTask)

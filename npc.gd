@@ -7,6 +7,10 @@ extends CharacterBody2D
 const SPEED = 300.0
 var path = []
 
+var inventory := []
+var maxWeight := 5
+var actualWeight := 0
+
 func SetMoveTarget(worldPos : Vector2):
 	var pos = position / terrain.rendering_quadrant_size
 	var targetPos = worldPos / terrain.rendering_quadrant_size
@@ -56,3 +60,20 @@ func update_animation(direction: Vector2) -> void:
 		animation.play("walk_back")
 	elif angle > -3*PI/8 and angle <= -PI/8:
 		animation.play("walk_back")
+		
+func CanTakeItem(item):
+	if actualWeight + item.weight > maxWeight:
+		return false
+	else:
+		return true
+		
+func AddItemNPCInventory(item):
+	inventory.append(item)
+	actualWeight += item.weight
+	$TextureProgressBar.value += item.weight
+	print(item)
+	
+func ResetInventory():
+	inventory = []
+	actualWeight = 0
+	$TextureProgressBar.value = 0

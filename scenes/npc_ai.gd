@@ -3,7 +3,7 @@ extends Node
 @onready var taskManager = $"../../TaskManager"
 @onready var itemManager = $"../../ItemManager"
 
-@onready var charController = $".."
+@onready var NPC = $".."
 
 
 enum PawnAction {Idle, DoingSubTask}
@@ -23,8 +23,9 @@ func _process(delta):
 		currentTask = taskManager.RequestTask()
 		
 func OnPickupItem(item):
-	inHand = item
-	itemManager.RemoveItemFromWorld(item)
+	if NPC.CanTakeItem(item):
+		NPC.AddItemNPCInventory(item)
+		itemManager.RemoveItemFromWorld(item)
 		
 func OnFinishedSubTask():
 	currentAction = PawnAction.Idle
@@ -40,7 +41,7 @@ func DoCurrentTask(delta):
 	else:
 		match subTask.taskType:
 			Task.TaskType.WalkTo:
-				if charController.HasReachedDestination():
+				if NPC.HasReachedDestination():
 					currentTask.OnReachedDestination()
 					OnFinishedSubTask();
 					
@@ -50,14 +51,16 @@ func DoCurrentTask(delta):
 					currentTask.OnFinishSubTask()
 					OnFinishedSubTask()
 				else:
-					print(targetItem.harvestProgress)
+					pass
+					#print(targetItem.harvestProgress)
+					#targetItem.progressBar.value += harvestSkill * delta * 1/targetItem.harvestDifficulty
 
 func StartCurrentSubTask(subTask):
 	print ("Starting subtask: " + Task.TaskType.keys()[subTask.taskType])
 	
 	match subTask.taskType:
 		Task.TaskType.FindItem:
-			var targetItem = itemManager.FindNearestItem(subTask.targetItemType, charController.position)
+			var targetItem = itemManager.FindNearestItem(subTask.targetItemType, NPC.position)
 			if targetItem == null:
 				print("no item, force task to finish")
 				currentTask.Finish()
@@ -67,10 +70,10 @@ func StartCurrentSubTask(subTask):
 			OnFinishedSubTask()
 			
 		Task.TaskType.WalkTo:
-			charController.SetMoveTarget(subTask.targetItem.position)
+			NPC.SetMoveTarget(subTask.targetItem.position)
 			currentAction = PawnAction.DoingSubTask
 			
-		Task.TaskType.Pickup:
+		Task.TaskType.PickUp:
 			OnPickupItem(subTask.targetItem)
 			currentTask.OnFinishSubTask()
 			OnFinishedSubTask()

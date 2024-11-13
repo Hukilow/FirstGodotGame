@@ -1,16 +1,16 @@
-extends Item
+extends Sprite2D
 
-class_name Trees
+class_name Item
 
-enum TreesType {ROOT = 0, LOG = 1, SMALL = 2, BIG = 3, ENORMOUS = 4}
+@export var count : int
 
-@export var wood_drop = 5
-@export var treesType : TreesType
+@onready var taskManager = $"../../TaskManager"
+@onready var itemManager = $"../../ItemManager"
+
 
 func _init():
-	super._init();
-	add_to_group("Trees")
-
+	add_to_group("Item")
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
