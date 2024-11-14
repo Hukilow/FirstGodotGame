@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8nudx8mrqwpg"]
+[gd_scene load_steps=8 format=3 uid="uid://b8nudx8mrqwpg"]
 
 [ext_resource type="Texture2D" uid="uid://debw8ltrmpi4o" path="res://assets/tilemap/Solaria Demo Tiles.png" id="1_aw1oq"]
 [ext_resource type="Script" path="res://Items/TreeAndBushs/small_tree.gd" id="2_qk8rn"]
@@ -11,6 +11,10 @@ region = Rect2(112, 48, 16, 32)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fsfdh"]
 radius = 8.0
 height = 32.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rlvw7"]
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lt0di"]
 bg_color = Color(0.341778, 0.694831, 0.308338, 1)
@@ -36,6 +40,7 @@ offset_top = -24.0
 offset_right = 16.0
 offset_bottom = -18.0
 theme_override_font_sizes/font_size = 15
+theme_override_styles/background = SubResource("StyleBoxFlat_rlvw7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_lt0di")
 max_value = 1.0
 show_percentage = false

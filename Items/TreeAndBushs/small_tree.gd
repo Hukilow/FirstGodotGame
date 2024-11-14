@@ -3,10 +3,10 @@ extends Item
 class_name Plant
 
 var harvestProgress : float = 0
-var harvestDifficulty : float = 4
+@export var harvestDifficulty : float = 4
 
-var harvestItem : String = "res://Items/TreeAndBushs/Log.tscn"
-var harvestAmount : Vector2i = Vector2i(5, 15)
+@export var harvestItem : String = "res://Items/TreeAndBushs/Log.tscn"
+@export var harvestAmount : Vector2i = Vector2i(5, 15)
 
 @onready var progressBar = $ProgressBar
 
