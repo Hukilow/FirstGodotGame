@@ -182,7 +182,7 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cs7jo")
 
-[node name="NPC_AI" type="Node" parent="."]
+[node name="NPC_AI" type="Node" parent="." groups=["persistant"]]
 script = ExtResource("3_4hi7a")
 
 [node name="TextureProgressBar" type="ProgressBar" parent="."]

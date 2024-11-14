@@ -745,6 +745,7 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="btn_skill" type="Button" parent="UI/Research"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5

@@ -2,8 +2,9 @@ extends Node2D
 
 @onready var panel_build = $"../UI/Build"
 
-var house_scene : PackedScene = load("res://scenes/house.tscn")
-var scierie_scene : PackedScene = load("res://scenes/scierie.tscn")
+var house_scene : PackedScene = load("res://building/house.tscn")
+var scierie_scene : PackedScene = load("res://building/scierie.tscn")
+var warehouse_scene : PackedScene = load("res://building/warehouse.tscn")
 var isPlacing : bool
 var delay = 5
 var object = null
@@ -32,3 +33,7 @@ func _on_house_pressed() -> void:
 func _on_scierie_pressed() -> void:
 	var scierie = scierie_scene.instantiate()
 	StartPlacing(scierie)
+
+func _on_warehouse_pressed() -> void:
+	var warehouse = warehouse_scene.instantiate()
+	StartPlacing(warehouse)

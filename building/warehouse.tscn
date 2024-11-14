@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://crqi025h5xvpp"]
+
+[ext_resource type="Script" path="res://warehouse.gd" id="1_7j2ho"]
+[ext_resource type="Texture2D" uid="uid://ddueh7n4ekp6x" path="res://icon.svg" id="2_7hjgi"]
+[ext_resource type="Script" path="res://Items/TreeAndBushs/click_target.gd" id="3_qyegr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gfyd6"]
+size = Vector2(70, 72.75)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v078f"]
+bg_color = Color(0, 0, 0, 0.227451)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nvlf"]
+bg_color = Color(0.819665, 0.521605, 0.241214, 1)
+border_color = Color(0.819608, 0.521569, 0.243137, 1)
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+anti_aliasing = false
+
+[node name="warehouse" type="Node2D"]
+script = ExtResource("1_7j2ho")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5625, 0.570313)
+texture = ExtResource("2_7hjgi")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("3_qyegr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.625)
+shape = SubResource("RectangleShape2D_gfyd6")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 41.0
+offset_top = 24.0
+offset_right = 90.0
+offset_bottom = 35.0
+rotation = -1.5708
+theme_override_constants/outline_size = 22
+theme_override_styles/background = SubResource("StyleBoxFlat_v078f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_3nvlf")
+step = 1.0
+show_percentage = false
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

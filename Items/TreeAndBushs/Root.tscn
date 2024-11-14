@@ -12,4 +12,3 @@ light_mask = 2
 visibility_layer = 2
 texture = SubResource("AtlasTexture_sojk8")
 script = ExtResource("2_vkeji")
-wood_drop = 2

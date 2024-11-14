@@ -23,6 +23,8 @@ func TryHarvest(amount : float) -> bool:
 	if harvestProgress >= 1:
 		itemManager.RemoveItemFromWorld(self)
 		itemManager.SpawnItemByName(harvestItem, randi_range(harvestAmount.x, harvestAmount.y), itemManager.WorldToMapPosition(position))
+		Global.actualXP += 1
+		
 		return true
 	else:
 		progressBar.value = harvestProgress

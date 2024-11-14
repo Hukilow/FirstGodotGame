@@ -514,9 +514,6 @@ light_mask = 4
 visibility_layer = 4
 position = Vector2(52, -7)
 
-[node name="Player_build" type="Node2D" parent="."]
-script = ExtResource("14_j5x1a")
-
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("9_2md7v")
 
@@ -585,7 +582,7 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="warehouse" type="Button" parent="UI/Build"]
+[node name="btn_build3" type="Button" parent="UI/Build"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.4
@@ -941,8 +938,10 @@ theme_override_constants/margin_right = 35
 layout_mode = 2
 text = "2"
 
+[node name="Player_build" type="Node2D" parent="."]
+script = ExtResource("14_j5x1a")
+
 [connection signal="pressed" from="UI/Build/house" to="Player_build" method="_on_house_pressed"]
 [connection signal="pressed" from="UI/Build/scierie" to="Player_build" method="_on_scierie_pressed"]
-[connection signal="pressed" from="UI/Build/warehouse" to="Player_build" method="_on_warehouse_pressed"]
 [connection signal="pressed" from="UI/Research/btn_buildings" to="UI/Research" method="_on_btn_buildings_pressed"]
 [connection signal="pressed" from="UI/Research/btn_skill" to="UI/Research" method="_on_btn_skill_pressed"]

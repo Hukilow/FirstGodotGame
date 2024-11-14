@@ -27,6 +27,19 @@ func OnPickupItem(item):
 		NPC.AddItemNPCInventory(item)
 		itemManager.RemoveItemFromWorld(item)
 		
+
+func CanStoreIn(item):
+	if item.maxCapacity - item.actualCapacity > NPC.actualWeight:
+		return true
+	return false
+
+
+func StoreItem(item):
+	if CanStoreIn(item):
+		item.actualCapacity += NPC.actualWeight
+		NPC.actualWeight = 0
+		item.UpdateProgressBar()
+		
 func OnFinishedSubTask():
 	currentAction = PawnAction.Idle
 	
@@ -78,6 +91,11 @@ func StartCurrentSubTask(subTask):
 			currentTask.OnFinishSubTask()
 			OnFinishedSubTask()
 			
-			
 		Task.TaskType.Harvest:
 			currentAction = PawnAction.DoingSubTask
+			
+		Task.TaskType.Store:
+			StoreItem(subTask.targetItem)
+			currentTask.OnFinishSubTask()
+			OnFinishedSubTask()
+			
