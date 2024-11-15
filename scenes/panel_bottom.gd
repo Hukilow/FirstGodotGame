@@ -20,9 +20,10 @@ func _process(_delta: float) -> void:
 func onButtonPressed(button: Button):
 	openSubMenu(button.text)
 	
+#Permet d'ouvrir les menus grâce aux boutons du bas sans impacter les UI Level et Ressources
 func openSubMenu(menu : String):
 	for submenu in get_parent().get_children():
-		if submenu != self:
+		if submenu != self and submenu.name != 'Level' and submenu.name != 'Ressources':
 			if menu == submenu.name:
 				if submenu.is_visible():
 					submenu.set_visible(false)

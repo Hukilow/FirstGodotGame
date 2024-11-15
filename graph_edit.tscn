@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://csmymbcpykk2x"]
+
+[ext_resource type="Script" path="res://graph_edit.gd" id="1_xtlme"]
+[ext_resource type="Script" path="res://graph_node_1.gd" id="3_geo2t"]
+
+[node name="GraphEdit" type="GraphEdit"]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+show_grid = false
+right_disconnects = true
+show_zoom_label = true
+show_grid_buttons = false
+show_minimap_button = false
+script = ExtResource("1_xtlme")
+
+[node name="GraphNode" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 394.0
+offset_top = 81.0
+offset_right = 430.0
+offset_bottom = 136.0
+mouse_filter = 1
+position_offset = Vector2(394, 81)
+ignore_invalid_connection_type = true
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+script = ExtResource("3_geo2t")
+
+[node name="Control" type="Control" parent="GraphNode"]
+layout_mode = 2
+
+[node name="GraphNode2" type="GraphNode" parent="."]
+layout_mode = 0
+offset_left = 522.0
+offset_top = 77.0
+offset_right = 558.0
+offset_bottom = 132.0
+mouse_filter = 1
+position_offset = Vector2(522, 77)
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Control" type="Control" parent="GraphNode2"]
+layout_mode = 2

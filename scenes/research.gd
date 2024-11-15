@@ -5,8 +5,8 @@ extends Panel
 @onready var UI = $".."
 @onready var buildingTree = $Building
 @onready var skillTree = $Skill
-
-
+@onready var level = $"../Level"
+@onready var ressources = $"../Ressources"
 
 var buttons = []
 var columns := 2
