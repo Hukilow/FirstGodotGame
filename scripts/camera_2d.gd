@@ -13,10 +13,12 @@ func _ready() -> void:
 	zoom_target = zoom
 
 func _process(delta: float) -> void:
-	Zoom(delta)
-	SimplePan(delta)
-	ClickAndDrag()
-	
+	if !Global.inMenu:
+		Zoom(delta)
+		SimplePan(delta)
+		ClickAndDrag()
+		
+		
 func Zoom(delta):
 	if Input.is_action_just_pressed("camera_zoom_in"):
 		zoom_target *= 1.1

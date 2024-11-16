@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bd27chct4jeq"]
+[gd_scene load_steps=5 format=3 uid="uid://bd27chct4jeq"]
 
 [ext_resource type="Texture2D" uid="uid://fu8bgqivntee" path="res://assets/building/maison.png" id="1_fyxlk"]
 [ext_resource type="Script" path="res://building/house.gd" id="1_nhbmg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jx4f"]
 size = Vector2(44.5, 58)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqqkk"]
+bg_color = Color(0, 0, 0, 0.466667)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="house" type="Node2D"]
 script = ExtResource("1_nhbmg")
@@ -19,6 +26,16 @@ texture = ExtResource("1_fyxlk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.75, -1)
 shape = SubResource("RectangleShape2D_4jx4f")
+
+[node name="Name" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -42.0
+offset_right = 29.0
+offset_bottom = -23.0
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_uqqkk")
+text = "Name"
+horizontal_alignment = 1
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

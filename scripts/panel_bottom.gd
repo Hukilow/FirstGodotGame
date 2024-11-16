@@ -31,7 +31,16 @@ func openSubMenu(menu : String):
 					submenu.set_visible(true)
 			else:
 				submenu.set_visible(false)
-		
+	IsInMenu()
+	
+func IsInMenu():
+	for submenu in get_parent().get_children():
+		if submenu.is_visible() and submenu.name != 'Level' and submenu.name != 'Ressources' and submenu.name != "Panel_bottom":
+			Global.inMenu= true
+			return
+	Global.inMenu = false
+	
+
 func arrangeButtons():
 	var div := float(1) / len(buttons)
 	

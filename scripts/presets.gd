@@ -8,8 +8,8 @@ extends Panel
 @onready var popup = $MarginContainer2/Popup
 @onready var input_field = $MarginContainer2/Popup/VBoxContainer/LineEdit
 @onready var ok_button = $MarginContainer2/Popup/VBoxContainer/Button
-
-var presetSelected = null
+@onready var houses = $"../../Assign/Houses"
+var scriptgraph = load("res://scripts/graph_edit.gd")
 var buttons = []
 
 func _ready() -> void:
@@ -48,15 +48,15 @@ func _on_add_pressed() -> void:
 
 		
 func _on_delete_pressed() -> void:
-	get_node("../Graphs/graph_" + presetSelected.text).queue_free()
-	buttons.erase(presetSelected)
-	presetSelected.queue_free()
+	get_node("../Graphs/graph_" + Global.presetSelected.text).queue_free()
+	buttons.erase(Global.presetSelected)
+	Global.presetSelected.queue_free()
 	arrangeButtons()
 	
 
 # Exemple de callback pour le nouveau bouton
 func _on_preset_button_pressed(button) -> void:
-	presetSelected = button
+	Global.presetSelected = button
 	for child in graphs.get_children():
 		if child.name == "graph_" + button.text:
 			child.set_visible(true)
@@ -77,11 +77,13 @@ func _on_ok_pressed():
 		var new_button = Button.new()
 		new_button.text = user_input
 		new_button.name = "preset_" + user_input
-		presetSelected = new_button
+		Global.presetSelected = new_button
 		new_button.connect("pressed",_on_preset_button_pressed.bind(new_button))
 		presets.add_child(new_button)
 		buttons.append(new_button)
+		Global.presetsWork[user_input] = []
 		arrangeButtons()
+		print(Global.presetsWork)
 		
 		var graph := GraphEdit.new()
 		graph.name = "graph_"+ user_input
@@ -92,4 +94,7 @@ func _on_ok_pressed():
 		graph.show_grid_buttons = false
 		graph.show_minimap_button = false
 		graph.minimap_enabled = false
+		graph.script = scriptgraph
 		graphs.add_child(graph)
+		
+		houses.updatePresets()

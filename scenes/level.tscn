@@ -1,29 +1,34 @@
-[gd_scene load_steps=31 format=4 uid="uid://7ue0q13ko71i"]
+[gd_scene load_steps=38 format=4 uid="uid://7ue0q13ko71i"]
 
-[ext_resource type="Script" path="res://scenes/level.gd" id="1_0wyc1"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_0wyc1"]
 [ext_resource type="Texture2D" uid="uid://debw8ltrmpi4o" path="res://assets/tilemap/Solaria Demo Tiles.png" id="2_uxpwh"]
-[ext_resource type="Script" path="res://scenes/task_manager.gd" id="3_pc3iw"]
+[ext_resource type="Script" path="res://scripts/task_manager.gd" id="3_pc3iw"]
 [ext_resource type="Texture2D" uid="uid://bc6ptnooxy852" path="res://assets/tilemap/forest_demo_objects.png" id="3_prvk5"]
-[ext_resource type="Script" path="res://scenes/tile_map_layer.gd" id="4_c65xq"]
-[ext_resource type="Script" path="res://scenes/camera_2d.gd" id="4_ox1ho"]
-[ext_resource type="Script" path="res://scenes/pathfinding.gd" id="7_y7nj1"]
+[ext_resource type="Script" path="res://scripts/tile_map_layer.gd" id="4_c65xq"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="4_ox1ho"]
+[ext_resource type="Script" path="res://scripts/pathfinding.gd" id="7_y7nj1"]
 [ext_resource type="PackedScene" uid="uid://br7bpu2oq6hqv" path="res://scenes/npc.tscn" id="8_ck0ei"]
 [ext_resource type="Script" path="res://Items/item_manager.gd" id="8_igbyy"]
-[ext_resource type="Script" path="res://scenes/ui.gd" id="9_2md7v"]
-[ext_resource type="Script" path="res://scenes/panel_bottom.gd" id="10_nxlwn"]
-[ext_resource type="Script" path="res://scenes/build.gd" id="11_dp04p"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="9_2md7v"]
+[ext_resource type="Script" path="res://scripts/panel_bottom.gd" id="10_nxlwn"]
+[ext_resource type="Script" path="res://scripts/build.gd" id="11_dp04p"]
 [ext_resource type="Texture2D" uid="uid://fu8bgqivntee" path="res://assets/building/maison.png" id="12_1os00"]
 [ext_resource type="Texture2D" uid="uid://ddueh7n4ekp6x" path="res://icon.svg" id="12_em6qe"]
-[ext_resource type="Script" path="res://scenes/player_build.gd" id="14_j5x1a"]
-[ext_resource type="Script" path="res://scenes/research.gd" id="15_2mf74"]
+[ext_resource type="Script" path="res://scripts/player_build.gd" id="14_j5x1a"]
+[ext_resource type="Script" path="res://scripts/research.gd" id="15_2mf74"]
 [ext_resource type="Texture2D" uid="uid://do2hvtku8dlcy" path="res://assets/icons/#1 - Transparent Icons.png" id="16_j2p24"]
 [ext_resource type="Texture2D" uid="uid://cblyid488xfj8" path="res://assets/icons/Asset 77.png" id="17_r5brm"]
-[ext_resource type="Script" path="res://scenes/work.gd" id="17_vismp"]
+[ext_resource type="Script" path="res://scripts/work.gd" id="17_vismp"]
+[ext_resource type="Script" path="res://scenes/houses.gd" id="17_y5kxn"]
+[ext_resource type="Texture2D" uid="uid://c7ly7naqat2vf" path="res://assets/icons/Asset 34.png" id="18_i4078"]
 [ext_resource type="Texture2D" uid="uid://c4oyl6ci7dpm7" path="res://assets/icons/Asset 68.png" id="18_nwmgt"]
-[ext_resource type="Script" path="res://scenes/tasks.gd" id="18_uwiev"]
-[ext_resource type="Script" path="res://scenes/nodes.gd" id="21_jxi5f"]
+[ext_resource type="Script" path="res://scripts/presets.gd" id="18_uwiev"]
+[ext_resource type="Script" path="res://scripts/nodes.gd" id="21_jxi5f"]
 [ext_resource type="Texture2D" uid="uid://bujo1aorl6tj1" path="res://assets/icons/Asset 16.png" id="21_kt5ht"]
-[ext_resource type="Script" path="res://scenes/graph_node.gd" id="22_cwfch"]
+[ext_resource type="Script" path="res://scripts/all_nodes.gd" id="22_cwfch"]
+[ext_resource type="Texture2D" uid="uid://cyhdddnrxwpde" path="res://assets/icons/Asset 83.png" id="25_q874s"]
+[ext_resource type="Texture2D" uid="uid://df38jcjlp47a" path="res://assets/icons/Asset 86.png" id="27_2ouh8"]
+[ext_resource type="Script" path="res://scripts/graph_edit.gd" id="28_yb0dx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5ynvl"]
 texture = ExtResource("2_uxpwh")
@@ -496,8 +501,15 @@ region = Rect2(351.583, 606.517, 33.5149, 35.2559)
 atlas = ExtResource("16_j2p24")
 region = Rect2(33.2445, 544.003, 29.924, 33.0361)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spobh"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ttku"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8bt7"]
+atlas = ExtResource("2_uxpwh")
+region = Rect2(112, 48, 16, 32)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0wyc1")
@@ -883,7 +895,86 @@ anchor_top = 0.2
 anchor_right = 0.75
 anchor_bottom = 0.7
 
+[node name="Houses" type="Panel" parent="UI/Assign"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.3
+anchor_bottom = 1.0
+script = ExtResource("17_y5kxn")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Assign/Houses"]
+layout_mode = 1
+offset_right = 77.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 30
+
+[node name="Label" type="Label" parent="UI/Assign/Houses/MarginContainer"]
+layout_mode = 2
+text = "Houses"
+horizontal_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Assign/Houses"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -55.0
+offset_bottom = 34.0
+grow_horizontal = 0
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 17
+
+[node name="ModifyName" type="Button" parent="UI/Assign/Houses/MarginContainer2"]
+layout_mode = 2
+icon = ExtResource("18_i4078")
+expand_icon = true
+
+[node name="PopupModify" type="Popup" parent="UI/Assign/Houses/MarginContainer2/ModifyName"]
+auto_translate_mode = 1
+transparent_bg = true
+size = Vector2i(150, 100)
+borderless = false
+transparent = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 93.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify/VBoxContainer"]
+layout_mode = 2
+text = "New name"
+horizontal_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify/VBoxContainer"]
+layout_mode = 2
+
+[node name="OkModify" type="Button" parent="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify/VBoxContainer"]
+layout_mode = 2
+text = "Ok"
+
+[node name="AllHouses" type="Panel" parent="UI/Assign/Houses"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.12
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_spobh")
+
+[node name="Details" type="Panel" parent="UI/Assign"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="Work" type="Panel" parent="UI"]
+visible = false
 anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.1
@@ -995,16 +1086,52 @@ script = ExtResource("21_jxi5f")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
-anchor_top = 0.05
+anchor_top = 0.1
 anchor_right = 0.4
 anchor_bottom = 0.95
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Start" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
+layout_mode = 2
+offset_right = 69.0
+offset_bottom = 90.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Start"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Start"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Start"]
+layout_mode = 2
+texture = ExtResource("25_q874s")
+expand_mode = 4
+
 [node name="Find" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
 layout_mode = 2
-offset_right = 61.0
-offset_bottom = 82.0
+offset_top = 94.0
+offset_right = 69.0
+offset_bottom = 184.0
 theme_override_constants/port_h_offset = 0
 position_offset = Vector2(20, 20)
 title = "Find"
@@ -1036,15 +1163,14 @@ layout_mode = 2
 texture = ExtResource("21_kt5ht")
 expand_mode = 4
 
-[node name="Find2" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
+[node name="Harvest" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
 layout_mode = 2
-offset_top = 86.0
-offset_right = 61.0
-offset_bottom = 168.0
+offset_top = 188.0
+offset_right = 69.0
+offset_bottom = 278.0
 theme_override_constants/port_h_offset = 0
 position_offset = Vector2(20, 20)
-selected = true
-title = "Find"
+title = "Harvest"
 slot/0/left_enabled = true
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
@@ -1065,13 +1191,140 @@ slot/1/right_icon = null
 slot/1/draw_stylebox = true
 script = ExtResource("22_cwfch")
 
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Find2"]
+[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Harvest"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Find2"]
+[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Harvest"]
 layout_mode = 2
 texture = ExtResource("21_kt5ht")
 expand_mode = 4
+
+[node name="Deposit" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
+layout_mode = 2
+offset_top = 282.0
+offset_right = 69.0
+offset_bottom = 372.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Deposit"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Deposit"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Deposit"]
+layout_mode = 2
+texture = ExtResource("21_kt5ht")
+expand_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Work/Nodes"]
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 19
+theme_override_constants/margin_top = 6
+
+[node name="Label" type="Label" parent="UI/Work/Nodes/MarginContainer"]
+layout_mode = 2
+text = "Nodes"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Work/Nodes"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="End" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer2"]
+layout_mode = 2
+offset_right = 67.0
+offset_bottom = 88.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "End"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer2/End"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer2/End"]
+layout_mode = 2
+texture = ExtResource("27_2ouh8")
+expand_mode = 4
+
+[node name="SmallTree" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer2"]
+layout_mode = 2
+offset_top = 92.0
+offset_right = 67.0
+offset_bottom = 181.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "SmTree"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer2/SmallTree"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer2/SmallTree"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_e8bt7")
 
 [node name="Graphs" type="Panel" parent="UI/Work"]
 layout_mode = 1
@@ -1079,9 +1332,76 @@ anchors_preset = -1
 anchor_left = 0.400391
 anchor_right = 1.00039
 anchor_bottom = 1.0
+
+[node name="NOTOUCH" type="GraphEdit" parent="UI/Work/Graphs"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("28_yb0dx")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
 grow_horizontal = 0
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+grow_vertical = 0
+theme_override_constants/margin_right = 25
+
+[node name="Label" type="Label" parent="UI/Work/MarginContainer"]
+layout_mode = 2
+text = "Del to delete a node"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -291.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 250
+
+[node name="Label" type="Label" parent="UI/Work/MarginContainer2"]
+layout_mode = 2
+text = "Left click on right connexion to delete wire"
+
+[node name="ImgValid" type="MarginContainer" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -21.0
+offset_bottom = 26.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 12
+
+[node name="ValidRect" type="ColorRect" parent="UI/Work/ImgValid"]
+layout_mode = 2
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="LabelValid" type="MarginContainer" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_right = 28
+
+[node name="ValidLabel" type="Label" parent="UI/Work/LabelValid"]
+layout_mode = 2
+text = "Not valid"
 
 [node name="Research" type="Panel" parent="UI"]
 visible = false
@@ -1169,9 +1489,15 @@ expand_icon = true
 [connection signal="pressed" from="UI/Build/house" to="Player_build" method="_on_house_pressed"]
 [connection signal="pressed" from="UI/Build/scierie" to="Player_build" method="_on_scierie_pressed"]
 [connection signal="pressed" from="UI/Build/warehouse" to="Player_build" method="_on_warehouse_pressed"]
+[connection signal="pressed" from="UI/Assign/Houses/MarginContainer2/ModifyName" to="UI/Assign/Houses" method="_on_modify_name_pressed"]
+[connection signal="pressed" from="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify/VBoxContainer/OkModify" to="UI/Assign/Houses" method="_on_ok_modify_pressed"]
 [connection signal="pressed" from="UI/Work/Presets/MarginContainer2/Add" to="UI/Work/Presets" method="_on_add_pressed"]
 [connection signal="pressed" from="UI/Work/Presets/MarginContainer3/Delete" to="UI/Work/Presets" method="_on_delete_pressed"]
+[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Start" to="UI/Work/Nodes" method="_on_node_click"]
 [connection signal="click" from="UI/Work/Nodes/VBoxContainer/Find" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Find2" to="UI/Work/Nodes" method="_on_node_click"]
+[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Harvest" to="UI/Work/Nodes" method="_on_node_click"]
+[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Deposit" to="UI/Work/Nodes" method="_on_node_click"]
+[connection signal="click" from="UI/Work/Nodes/VBoxContainer2/End" to="UI/Work/Nodes" method="_on_node_click"]
+[connection signal="click" from="UI/Work/Nodes/VBoxContainer2/SmallTree" to="UI/Work/Nodes" method="_on_node_click"]
 [connection signal="pressed" from="UI/Research/btn_buildings" to="UI/Research" method="_on_btn_buildings_pressed"]
 [connection signal="pressed" from="UI/Research/btn_skill" to="UI/Research" method="_on_btn_skill_pressed"]

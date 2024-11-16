@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://npc.gd" id="1_fapna"]
 [ext_resource type="Texture2D" uid="uid://cf2vcff4uohgl" path="res://assets/character/Prototype_Character.png" id="2_skhyu"]
-[ext_resource type="Script" path="res://scenes/npc_ai.gd" id="3_4hi7a"]
+[ext_resource type="Script" path="res://scripts/npc_ai.gd" id="3_4hi7a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgxjj"]
 atlas = ExtResource("2_skhyu")
