@@ -4,6 +4,7 @@ enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2}
 var itemCategories = ["Item","Trees","Food"]
 
 var itemPrototypes = []
+var itemPickable = []
 
 var itemsInWorld = []
 
@@ -21,8 +22,10 @@ var mountain_atlas = Vector2i(18,4)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	LoadTrees()
+	LoadItem("res://Items/TreeAndBushs/")
+	LoadItem("res://Items/RockAndCobble/")
 	SpawnItemWorld(itemPrototypes[3],0.1)
+	SpawnItemWorld(itemPrototypes[4],0.1)
 	pass # Replace with function body.
 
 
@@ -44,7 +47,7 @@ func RemoveItemFromWorld(item):
 func SpawnItemByName(itemName : String, amount: int, mapPosition : Vector2i):
 	var newItem
 	
-	for item in itemPrototypes:
+	for item in itemPickable:
 		if item.get_path() == itemName:
 			newItem = item.instantiate()
 			newItem.count = amount
@@ -99,8 +102,8 @@ func LoadItemPrototypes():
 		print(fileName)
 
 
-func LoadTrees():
-	var path = "res://Items/TreeAndBushs"
+func LoadItem(way):
+	var path = way
 	var dir = DirAccess.open(path)
 	dir.open(path)
 	dir.list_dir_begin()
@@ -108,8 +111,11 @@ func LoadTrees():
 		var file_name = dir.get_next()
 		if file_name == "":
 			break
+		elif file_name.ends_with("pickable.tscn"):
+			itemPickable.append(load(path + "/" + file_name))
 		elif file_name.ends_with(".tscn"):
 			itemPrototypes.append(load(path + "/" + file_name))
+		
 	dir.list_dir_end()
 	
 	

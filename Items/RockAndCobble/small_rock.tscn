@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://ccjvkf7g2ygle"]
+
+[ext_resource type="Texture2D" uid="uid://bc6ptnooxy852" path="res://assets/tilemap/forest_demo_objects.png" id="1_fq80a"]
+[ext_resource type="Script" path="res://Items/RockAndCobble/Rock.gd" id="2_pphky"]
+[ext_resource type="Script" path="res://Items/click_target.gd" id="3_sdfq4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wlnoj"]
+atlas = ExtResource("1_fq80a")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0nyw6"]
+radius = 8.0
+height = 18.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ulwhp"]
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yxfyk"]
+bg_color = Color(0.341778, 0.694831, 0.308338, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+
+[node name="SmallRock" type="Sprite2D"]
+texture = SubResource("AtlasTexture_wlnoj")
+script = ExtResource("2_pphky")
+rocksType = 1
+
+[node name="clickTarget" type="Area2D" parent="."]
+script = ExtResource("3_sdfq4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clickTarget"]
+rotation = -1.5708
+shape = SubResource("CapsuleShape2D_0nyw6")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -15.0
+offset_top = -14.0
+offset_right = 16.0
+offset_bottom = -8.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/background = SubResource("StyleBoxFlat_ulwhp")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yxfyk")
+max_value = 1.0
+show_percentage = false

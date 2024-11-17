@@ -4,7 +4,7 @@ extends Node2D
 @onready var nextLevel = $UI/Level/MarginContainer3/NextLevel
 
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	updateLevel()
 	
 	

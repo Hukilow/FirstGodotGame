@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwaor1j2tvk5g"]
+
+[ext_resource type="Texture2D" uid="uid://bc6ptnooxy852" path="res://assets/tilemap/forest_demo_objects.png" id="1_dwgnp"]
+[ext_resource type="Script" path="res://Items/TreeAndBushs/tree.gd" id="2_4elxe"]
+[ext_resource type="Script" path="res://Items/click_target.gd" id="3_sp2cw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ey7x"]
+atlas = ExtResource("1_dwgnp")
+region = Rect2(0, 0, 63, 80)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_luf1t"]
+radius = 27.0
+height = 80.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2ge8"]
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khu6s"]
+bg_color = Color(0.341778, 0.694831, 0.308338, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+
+[node name="EnormousTree" type="Sprite2D"]
+texture = SubResource("AtlasTexture_8ey7x")
+script = ExtResource("2_4elxe")
+treesType = 4
+preregisterCaracteristics = true
+
+[node name="clickTarget" type="Area2D" parent="."]
+script = ExtResource("3_sp2cw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clickTarget"]
+position = Vector2(1, 1)
+shape = SubResource("CapsuleShape2D_luf1t")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -15.0
+offset_top = -47.0
+offset_right = 16.0
+offset_bottom = -41.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/background = SubResource("StyleBoxFlat_g2ge8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_khu6s")
+max_value = 1.0
+show_percentage = false

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://b8nudx8mrqwpg"]
 
 [ext_resource type="Texture2D" uid="uid://debw8ltrmpi4o" path="res://assets/tilemap/Solaria Demo Tiles.png" id="1_aw1oq"]
-[ext_resource type="Script" path="res://Items/TreeAndBushs/small_tree.gd" id="2_qk8rn"]
-[ext_resource type="Script" path="res://Items/TreeAndBushs/click_target.gd" id="3_wj6th"]
+[ext_resource type="Script" path="res://Items/TreeAndBushs/tree.gd" id="2_qk8rn"]
+[ext_resource type="Script" path="res://Items/click_target.gd" id="3_wj6th"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oh6r7"]
 atlas = ExtResource("1_aw1oq")
@@ -26,6 +26,8 @@ light_mask = 2
 visibility_layer = 2
 texture = SubResource("AtlasTexture_oh6r7")
 script = ExtResource("2_qk8rn")
+treesType = 2
+preregisterCaracteristics = true
 
 [node name="clickTarget" type="Area2D" parent="."]
 script = ExtResource("3_wj6th")
