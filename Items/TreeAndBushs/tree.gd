@@ -51,7 +51,7 @@ func load_preregister_caracteristics():
 		harvestAmount = Vector2i(20, 40)
 		
 
-func TryHarvest(amount : float) -> bool:
+func TryHarvest(amount : float, targetItem) -> bool:
 	progressBar.visible = true
 	harvestProgress += amount * 1/harvestDifficulty
 	if harvestProgress >= 1:
