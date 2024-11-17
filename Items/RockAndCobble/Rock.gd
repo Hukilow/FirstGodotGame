@@ -14,9 +14,8 @@ var harvestProgress : float = 0
 @export var XP_drop : int = 1
 @export var harvestAmount : Vector2i = Vector2i(8, 10)
 @export var hardness : int = 3
-
-
 @onready var progressBar = $ProgressBar
+
 
 func _init():
 	super._init()
@@ -25,7 +24,8 @@ func _init():
 func _ready() -> void:
 	if preregisterCaracteristics:
 		load_preregister_caracteristics()
-	
+
+
 
 
 func load_preregister_caracteristics():
@@ -46,7 +46,7 @@ func load_preregister_caracteristics():
 		hardness = randi_range(15,20)
 		
 
-func TryHarvest(amount : float) -> bool:
+func TryHarvest(amount : float, targetItem) -> bool:
 	harvestProgress += amount * 1/harvestDifficulty
 	progressBar.visible = true
 	if harvestProgress >= 1:
@@ -54,6 +54,7 @@ func TryHarvest(amount : float) -> bool:
 		if hardness == 0:
 			itemManager.RemoveItemFromWorld(self)
 		var newPos = Vector2i(randi_range(position.x-20,position.x+20), position.y+20) # ici faut mettre pour la position celle du centre de l'item mais jsp comment faire
+		print(targetItem.position)
 		itemManager.SpawnItemByName(harvestItem, randi_range(harvestAmount.x, harvestAmount.y), itemManager.WorldToMapPosition(newPos))
 		Global.actualXP += XP_drop
 		harvestProgress = 0

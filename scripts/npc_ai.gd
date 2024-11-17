@@ -60,7 +60,7 @@ func DoCurrentTask(delta):
 					
 			Task.TaskType.Harvest:
 				var targetItem = currentTask.GetCurrentSubTask().targetItem
-				if targetItem.TryHarvest(harvestSkill * delta):
+				if targetItem.TryHarvest(harvestSkill * delta,targetItem):
 					currentTask.OnFinishSubTask()
 					OnFinishedSubTask()
 				else:
