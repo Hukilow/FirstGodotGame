@@ -40,7 +40,6 @@ func _on_connection_request(from_node, from_port, to_node, to_port):
 	if !connections.has(from_title):
 		connections[from_title] = []
 	connections[from_title] = {"to_node": to_title}
-	print(connections)
 	
 	# Crée la connexion visuelle dans le GraphEdit
 	connect_node(from_node, from_port, to_node, to_port)
@@ -60,7 +59,6 @@ func _on_disconnection_request(from_node, from_port, to_node, to_port):
 	connections.erase(from_title)
 	# Supprime la connexion visuelle dans le GraphEdit
 	disconnect_node(from_node, from_port, to_node, to_port)
-	print(connections)
 	# Met à jour Global.presetsWork
 	if len(IsValidPath()) > 2:
 		if Global.presetsWork.has(Global.presetSelected.text):

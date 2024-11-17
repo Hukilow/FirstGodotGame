@@ -18,7 +18,6 @@
 [ext_resource type="Script" path="res://scripts/research.gd" id="15_2mf74"]
 [ext_resource type="Texture2D" uid="uid://do2hvtku8dlcy" path="res://assets/icons/#1 - Transparent Icons.png" id="16_j2p24"]
 [ext_resource type="Texture2D" uid="uid://cblyid488xfj8" path="res://assets/icons/Asset 77.png" id="17_r5brm"]
-[ext_resource type="Script" path="res://scripts/work.gd" id="17_vismp"]
 [ext_resource type="Script" path="res://scenes/houses.gd" id="17_y5kxn"]
 [ext_resource type="Texture2D" uid="uid://c7ly7naqat2vf" path="res://assets/icons/Asset 34.png" id="18_i4078"]
 [ext_resource type="Texture2D" uid="uid://c4oyl6ci7dpm7" path="res://assets/icons/Asset 68.png" id="18_nwmgt"]
@@ -504,6 +503,10 @@ region = Rect2(33.2445, 544.003, 29.924, 33.0361)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spobh"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="GDScript" id="GDScript_xmc2v"]
+script/source = "extends Panel
+"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ttku"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -888,7 +891,6 @@ vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="Assign" type="Panel" parent="UI"]
-visible = false
 anchors_preset = -1
 anchor_left = 0.25
 anchor_top = 0.2
@@ -967,11 +969,38 @@ anchor_bottom = 1.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_spobh")
 
 [node name="Details" type="Panel" parent="UI/Assign"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.3
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="PresetLabel" type="Label" parent="UI/Assign/Details"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.11
+anchor_right = 0.1
+anchor_bottom = 0.11
+text = "Preset :"
+
+[node name="Details2" type="Panel" parent="UI/Assign"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="PresetLabel" type="Label" parent="UI/Assign/Details2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.11
+anchor_right = 0.1
+anchor_bottom = 0.11
+text = "Preset :"
 
 [node name="Work" type="Panel" parent="UI"]
 visible = false
@@ -980,7 +1009,7 @@ anchor_left = 0.1
 anchor_top = 0.1
 anchor_right = 0.9
 anchor_bottom = 0.85
-script = ExtResource("17_vismp")
+script = SubResource("GDScript_xmc2v")
 metadata/_edit_use_anchors_ = true
 
 [node name="Presets" type="Panel" parent="UI/Work"]

@@ -60,6 +60,7 @@ layout_mode = 2
 
 [node name="ScreenMode" type="PopupMenu" parent="CenterContainer/VBoxContainer/ScreenMode"]
 auto_translate_mode = 1
+size = Vector2i(103, 100)
 item_count = 3
 item_0/text = "Fullscreen"
 item_1/text = "Borderless"

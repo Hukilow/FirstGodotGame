@@ -21,3 +21,9 @@ var presetsWork = {}
 
 #Contient le preset de chaque maison
 var presetsHouses = {}
+
+func GetPresetsList():
+	var all = []
+	for preset in presetsWork.keys():
+		all.append(preset)
+	return all

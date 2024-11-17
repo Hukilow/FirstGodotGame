@@ -28,25 +28,36 @@ func _process(delta: float) -> void:
 		tween.tween_property(object, "position", get_global_mouse_position(), delay * delta)
 		if Input.is_action_just_pressed("click") and len(Global.inCollision) == 0:
 			isPlacing = false
+			#On vérifie si le build est une maison
 			if buildSelected.scene_file_path == "res://building/house.tscn":
+				#On crée un nouveau bouton dans Assign
 				var new_button = Button.new()
 				var house_name = FindNameForHouse()
 				buildSelected.name = "house_" + house_name
 				buildSelected.get_node("Name").text = house_name
 				new_button.text = house_name
 				new_button.name = house_name
+				#On connecte le bouton
 				new_button.connect("pressed",houses._on_house_button_pressed.bind(new_button))
 				allHouses.add_child(new_button)
 				houses.buttons.append(new_button)
 				houses.arrangeButtons()
 				var menubar = MenuBar.new()
 				menubar.name = house_name
+				menubar.anchor_left = 0.25
+				menubar.anchor_top = 0.1
 				var popupMenu = PopupMenu.new()
-				popupMenu.name = "Preset"
+				popupMenu.name = "None"
+				#On connecte le popupMenu pour récupérer le choix
+				popupMenu.connect("id_pressed", houses._on_preset_id_pressed)
 				menubar.add_child(popupMenu)
+				menubar.set_visible(false)
 				housesDetails.add_child(menubar)
+				
 				houses.updatePresets()
 				Global.houseSelected = new_button
+				if !Global.presetsHouses.has(house_name):
+					Global.presetsHouses[house_name] = null
 			buildSelected = null
 			
 func FindNameForHouse() -> String:

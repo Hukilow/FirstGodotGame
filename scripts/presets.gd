@@ -49,10 +49,11 @@ func _on_add_pressed() -> void:
 		
 func _on_delete_pressed() -> void:
 	get_node("../Graphs/graph_" + Global.presetSelected.text).queue_free()
+	Global.presetsWork.erase(Global.presetSelected.name.substr(7, Global.presetSelected.name.length() - 7))
+	houses.updatePresets()
 	buttons.erase(Global.presetSelected)
 	Global.presetSelected.queue_free()
 	arrangeButtons()
-	
 
 # Exemple de callback pour le nouveau bouton
 func _on_preset_button_pressed(button) -> void:
@@ -68,7 +69,7 @@ func _on_ok_pressed():
 	var user_input = input_field.text
 	#Vérifie si le nom n'existe pas déjà
 	for child in graphs.get_children():
-		if child.name == "graph_" + user_input:
+		if child.name == "graph_" + user_input or len(user_input) < 2:
 			popup.hide()
 			return
 	popup.hide()
@@ -83,7 +84,7 @@ func _on_ok_pressed():
 		buttons.append(new_button)
 		Global.presetsWork[user_input] = []
 		arrangeButtons()
-		print(Global.presetsWork)
+		print("add ",Global.presetsWork)
 		
 		var graph := GraphEdit.new()
 		graph.name = "graph_"+ user_input
