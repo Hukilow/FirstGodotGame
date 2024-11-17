@@ -1,5 +1,7 @@
 extends Node
 
+class_name ItemManager
+
 enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2}
 var itemCategories = ["Item","Trees","Food"]
 

@@ -28,3 +28,7 @@ func AddTask(taskType, targetItem):
 	if taskType == Task.TaskType.Store:
 		newTask.InitStoreTask(targetItem)
 		taskQueue.append(newTask)
+
+	if taskType == Task.TaskType.Find:
+		newTask.InitFindAndWalkTask()
+		taskQueue.append(newTask)

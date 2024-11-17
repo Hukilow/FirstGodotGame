@@ -1,7 +1,7 @@
 extends Node
 
-@onready var taskManager = $"../../TaskManager"
-@onready var itemManager = $"../../ItemManager"
+@onready var taskManager = $"../../../TaskManager"
+@onready var itemManager = $"../../../ItemManager"
 
 @onready var NPC = $".."
 

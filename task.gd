@@ -2,7 +2,7 @@ extends Node
 
 class_name Task
 
-enum TaskType {BaseTask, FindItem, WalkTo, PickUp, Eat, Manipulate, Harvest, Store}
+enum TaskType {BaseTask, FindItem, WalkTo, PickUp, Eat, Manipulate, Harvest, Store, Find}
 
 var taskName: String
 var taskType: TaskType = TaskType.BaseTask
@@ -66,4 +66,15 @@ func InitStoreTask(target):
 	subTask.taskType = TaskType.Store
 	subTask.targetItem = target
 	subTasks.append(subTask)
+	
+func InitFindAndWalkTask():
+	var subTask = Task.new()
+	subTask.taskType = TaskType.FindItem
+	subTask.targetItemType = ItemManager.ItemCategory.WOOD
+	subTasks.append(subTask)
+	
+	subTask = Task.new()
+	subTask.taskType = TaskType.WalkTo
+	subTasks.append(subTask)
+
 	

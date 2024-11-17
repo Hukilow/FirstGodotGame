@@ -5,9 +5,11 @@ extends Node2D
 var house_scene : PackedScene = load("res://building/house.tscn")
 var scierie_scene : PackedScene = load("res://building/scierie.tscn")
 var warehouse_scene : PackedScene = load("res://building/warehouse.tscn")
+var fellowNPC_scene : PackedScene = load("res://scenes/fellownpc.tscn")
 @onready var houses = $"../UI/Assign/Houses"
 @onready var allHouses = $"../UI/Assign/Houses/AllHouses"
 @onready var housesDetails = $"../UI/Assign/Details"
+@onready var NPCs = $"../NPCs"
 var isPlacing : bool
 var delay = 5
 var object = null
@@ -20,6 +22,7 @@ func StartPlacing(new_object):
 	object = new_object
 	isPlacing = true
 	buildSelected = new_object
+	Global.inMenu = false
 	
 
 func _process(delta: float) -> void:
@@ -58,6 +61,11 @@ func _process(delta: float) -> void:
 				Global.houseSelected = new_button
 				if !Global.presetsHouses.has(house_name):
 					Global.presetsHouses[house_name] = null
+					
+				var fellowNPC = fellowNPC_scene.instantiate()
+				fellowNPC.name = "FellowNPC" + house_name
+				fellowNPC.position = Vector2(buildSelected.position.x,buildSelected.position.y+25)
+				NPCs.add_child(fellowNPC)
 			buildSelected = null
 			
 func FindNameForHouse() -> String:
