@@ -1,15 +1,15 @@
 extends Item
 
-class_name Trees
+class_name Log
 
-enum TreesType {ROOT = 0, LOG = 1, SMALL = 2, BIG = 3, ENORMOUS = 4}
+
 @export var weight = 1
-@export var treesType : TreesType
+
 
 
 func _init():
 	super._init();
-	add_to_group("Trees")
+	add_to_group("Log")
 
 
 # Called when the node enters the scene tree for the first time.
