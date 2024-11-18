@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var terrain := $"../TileMapLayer1"
+@onready var terrain := $"../TileMapLayer"
 @onready var pathfinding := $"../Pathfinding"
 @onready var animation = $AnimatedSprite2D
 @onready var itemManager = $"../ItemManager"

@@ -10,7 +10,7 @@ var itemsInWorld = []
 
 var width := Global.width
 var height := Global.height
-@onready var tilemap = $"../TileMapLayer1"
+@onready var tilemap = $"../TileMapLayer"
 var rng = RandomNumberGenerator.new()
 var base_grass_atlas = [Vector2i(5,0),Vector2i(6,1),Vector2i(6,0),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1),Vector2i(5,1)]
 var base_water_atlas = Vector2i(5,6)
@@ -24,7 +24,7 @@ var mountain_atlas = Vector2i(18,4)
 func _ready() -> void:
 	LoadItem("res://Items/TreeAndBushs/")
 	LoadItem("res://Items/RockAndCobble/")
-	SpawnItemWorld(itemPrototypes[3],0.1)
+	#SpawnForest(50)
 	SpawnItemWorld(itemPrototypes[4],0.1)
 	pass # Replace with function body.
 
@@ -66,12 +66,33 @@ func SpawnItem(item, mapPosition):
 
 
 func SpawnItemWorld(item, odd):
-	for _i in range(-width+5, width-5):
-		for _j in range(-height+5, height-5):
-			var pos = Vector2(_i, _j)
+	for i in range(-width+5, width-5):
+		for j in range(-height+5, height-5):
+			var pos = Vector2(i, j)
 			var tile_coords = tilemap.get_cell_atlas_coords(pos)
 			if tile_coords in base_grass_atlas and rng.randf_range(0,100) <= odd:
 				SpawnItem(item, Vector2(pos))
+				
+func SpawnForest(odd):
+	for i in range(-width, width-20):
+		for j in range(-height, height-20):
+			if CheckMap(i, j, 20, base_grass_atlas) and rng.randf_range(0,100) <= odd:
+				var pos = Vector2(i, j)
+				for y in range(7):
+					while pos.x < i+20:
+						pos.x += rng.randi_range(3,5)
+						pos.y = j + (y * 3) + rng.randi_range(0,3)
+						SpawnItem(itemPrototypes[rng.randi_range(0,3)], Vector2(pos))
+				
+
+func CheckMap(i, j, decalage, atlas):
+	for k in range (i,i+decalage):
+		for l in range(j,j+decalage):
+			var pos = Vector2(k, l)
+			var tile_coords = tilemap.get_cell_atlas_coords(pos)
+			if tile_coords not in atlas:
+				return false
+	return true
 
 func FindNearestItem(itemCategory: ItemCategory, worldPos: Vector2):
 	if len(itemsInWorld) == 0:

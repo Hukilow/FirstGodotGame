@@ -55,7 +55,8 @@ func TryHarvest(amount : float, targetItem) -> bool:
 	progressBar.visible = true
 	harvestProgress += amount * 1/harvestDifficulty
 	if harvestProgress >= 1:
-		var newPos = Vector2i(randi_range(position.x-20,position.x+20), position.y+20)
+		var pos = targetItem.position
+		var newPos = Vector2i(randi_range(pos.x-20,pos.x+20), pos.y+20)
 		itemManager.RemoveItemFromWorld(self)
 		itemManager.SpawnItemByName(harvestItem, randi_range(harvestAmount.x, harvestAmount.y), itemManager.WorldToMapPosition(newPos))
 		Global.actualXP += XP_drop

@@ -1,7 +1,7 @@
 @tool
 extends Node2D
 
-@onready var terrain = $"../TileMapLayer1"
+@onready var terrain = $"../TileMapLayer"
 
 var astar_grid = AStarGrid2D.new()
 
