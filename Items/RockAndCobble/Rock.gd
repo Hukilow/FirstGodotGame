@@ -41,7 +41,7 @@ func load_preregister_caracteristics():
 		harvestAmount = Vector2i(1, 2)
 		hardness = randi_range(5,10)
 	if rocksType == 2:
-		harvestDifficulty = 1
+		harvestDifficulty = 10
 		XP_drop = 3
 		harvestAmount = Vector2i(3, 4)
 		hardness = randi_range(15,20)

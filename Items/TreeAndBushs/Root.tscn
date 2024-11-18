@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3y4g41pdnk5g"]
+[gd_scene load_steps=8 format=3 uid="uid://d3y4g41pdnk5g"]
 
 [ext_resource type="Texture2D" uid="uid://bc6ptnooxy852" path="res://assets/tilemap/forest_demo_objects.png" id="1_kf1u0"]
 [ext_resource type="Script" path="res://Items/TreeAndBushs/tree.gd" id="2_6cetl"]
@@ -10,6 +10,15 @@ region = Rect2(144, 32, 32, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lky2x"]
 size = Vector2(30, 15)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_df3ff"]
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4kab"]
+bg_color = Color(0.341778, 0.694831, 0.308338, 1)
+corner_radius_top_left = 5
+corner_radius_bottom_right = 5
 
 [node name="Root" type="Sprite2D"]
 light_mask = 2
@@ -25,3 +34,15 @@ script = ExtResource("3_dnrqj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="clickTarget"]
 position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_lky2x")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -15.0
+offset_top = -47.0
+offset_right = 16.0
+offset_bottom = -41.0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/background = SubResource("StyleBoxFlat_df3ff")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l4kab")
+max_value = 1.0
+show_percentage = false

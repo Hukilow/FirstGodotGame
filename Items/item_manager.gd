@@ -1,9 +1,9 @@
 extends Node
 
-enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2}
-var itemCategories = ["Item","Trees","Food"]
+enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2, ROCK = 3}
+var itemCategories = ["Item","Trees","Food", "Rocks"]
 
-var itemPrototypes = []
+var itemPrototypes = {}
 var itemPickable = []
 
 var itemsInWorld = []
@@ -22,17 +22,26 @@ var mountain_atlas = Vector2i(18,4)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	LoadItem("res://Items/TreeAndBushs/")
-	LoadItem("res://Items/RockAndCobble/")
-	#SpawnForest(50)
-	SpawnItemWorld(itemPrototypes[4],0.1)
+	setup()
+	SpawnItemWorld(itemPrototypes["Trees"][1],0.1)
+	SpawnItemWorld(itemPrototypes["Rocks"][1],0.1)
+	SpawnForest(50)
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
+func setup():
+	LoadItem("res://Items/TreeAndBushs/", "Trees")
+	LoadItem("res://Items/RockAndCobble/", "Rocks")
+	for i in range(-width, width):
+		var ligne = []
+		for j in range(-height, height):
+			ligne.append(0)
+		itemsInWorld.append(ligne)
+	
+	
 func MapToWorldPosition(mapPosX : int, mapPosY : int) -> Vector2:
 	return Vector2(mapPosX * 16 + 8, mapPosY * 16 + 8)
 	
@@ -61,7 +70,7 @@ func SpawnItemByName(itemName : String, amount: int, mapPosition : Vector2i):
 func SpawnItem(item, mapPosition):
 	var newItem = item.instantiate()
 	add_child(newItem)
-	itemsInWorld.append(newItem)
+	itemsInWorld[mapPosition.x][mapPosition.y] = newItem
 	newItem.position = MapToWorldPosition(mapPosition.x, mapPosition.y)
 
 
@@ -70,29 +79,19 @@ func SpawnItemWorld(item, odd):
 		for j in range(-height+5, height-5):
 			var pos = Vector2(i, j)
 			var tile_coords = tilemap.get_cell_atlas_coords(pos)
-			if tile_coords in base_grass_atlas and rng.randf_range(0,100) <= odd:
+			if tile_coords in base_grass_atlas and rng.randf_range(0,100) <= odd and typeof(itemsInWorld[i][j]) == TYPE_INT:
 				SpawnItem(item, Vector2(pos))
 				
 func SpawnForest(odd):
-	for i in range(-width, width-20):
-		for j in range(-height, height-20):
-			if CheckMap(i, j, 20, base_grass_atlas) and rng.randf_range(0,100) <= odd:
-				var pos = Vector2(i, j)
-				for y in range(7):
-					while pos.x < i+20:
-						pos.x += rng.randi_range(3,5)
-						pos.y = j + (y * 3) + rng.randi_range(0,3)
+	for i in range(-width+5, width-5):
+		for j in range(-height+5, height-5):
+			var pos = Vector2(i, j)
+			if typeof(itemsInWorld[i][j]) != TYPE_INT and rng.randf_range(0,100) <= odd and IsItemInCategory(itemsInWorld[i][j], 1):
+				while odd != 0:
+					for x in range(4):
 						SpawnItem(itemPrototypes[rng.randi_range(0,3)], Vector2(pos))
-				
 
-func CheckMap(i, j, decalage, atlas):
-	for k in range (i,i+decalage):
-		for l in range(j,j+decalage):
-			var pos = Vector2(k, l)
-			var tile_coords = tilemap.get_cell_atlas_coords(pos)
-			if tile_coords not in atlas:
-				return false
-	return true
+
 
 func FindNearestItem(itemCategory: ItemCategory, worldPos: Vector2):
 	if len(itemsInWorld) == 0:
@@ -123,7 +122,8 @@ func LoadItemPrototypes():
 		print(fileName)
 
 
-func LoadItem(way):
+func LoadItem(way,type):
+	itemPrototypes[type] = []
 	var path = way
 	var dir = DirAccess.open(path)
 	dir.open(path)
@@ -135,7 +135,7 @@ func LoadItem(way):
 		elif file_name.ends_with("pickable.tscn"):
 			itemPickable.append(load(path + "/" + file_name))
 		elif file_name.ends_with(".tscn"):
-			itemPrototypes.append(load(path + "/" + file_name))
+			itemPrototypes[type].append(load(path + "/" + file_name))
 		
 	dir.list_dir_end()
 	
