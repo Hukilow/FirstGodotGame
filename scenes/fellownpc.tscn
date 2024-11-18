@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://dgvpwqhte8i1d"]
+[gd_scene load_steps=26 format=3 uid="uid://dgvpwqhte8i1d"]
 
 [ext_resource type="Script" path="res://npc.gd" id="1_jck2q"]
 [ext_resource type="Texture2D" uid="uid://d2xvwqh4djka7" path="res://assets/character/Prototype_Character_Red.png" id="2_d7y0n"]
+[ext_resource type="Script" path="res://scenes/fellowNPC.gd" id="3_tf5vr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvk10"]
 atlas = ExtResource("2_d7y0n")
@@ -178,6 +179,9 @@ animation = &"walk_left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cs7jo")
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_tf5vr")
 
 [node name="TextureProgressBar" type="ProgressBar" parent="."]
 offset_left = -7.0

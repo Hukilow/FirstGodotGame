@@ -57,15 +57,32 @@ func _process(delta: float) -> void:
 				menubar.set_visible(false)
 				housesDetails.add_child(menubar)
 				
+				var StartWorkButton = Button.new()
+				StartWorkButton.name = "start_" + house_name
+				StartWorkButton.anchor_left = 0.88
+				StartWorkButton.anchor_top = 0.85
+				StartWorkButton.anchor_right = 0.94
+				StartWorkButton.anchor_bottom = 0.93
+				StartWorkButton.disabled = true
+				StartWorkButton.visible = false
+				StartWorkButton.icon = load("res://assets/icons/Asset 84.png")
+				StartWorkButton.expand_icon = true
+				StartWorkButton.connect("pressed", houses._on_start_button_pressed.bind(StartWorkButton))
+				housesDetails.add_child(StartWorkButton)
+				
+				
 				houses.updatePresets()
 				Global.houseSelected = new_button
 				if !Global.presetsHouses.has(house_name):
 					Global.presetsHouses[house_name] = null
 					
 				var fellowNPC = fellowNPC_scene.instantiate()
-				fellowNPC.name = "FellowNPC" + house_name
+				fellowNPC.name = "FellowNPC_" + house_name
 				fellowNPC.position = Vector2(buildSelected.position.x,buildSelected.position.y+25)
 				NPCs.add_child(fellowNPC)
+				if !Global.isNPCWorking.has(house_name):
+					Global.isNPCWorking[house_name] = false
+				Global.isNPCWorking[house_name] = false
 			buildSelected = null
 			
 func FindNameForHouse() -> String:

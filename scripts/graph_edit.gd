@@ -43,10 +43,11 @@ func _on_connection_request(from_node, from_port, to_node, to_port):
 	
 	# Crée la connexion visuelle dans le GraphEdit
 	connect_node(from_node, from_port, to_node, to_port)
-	if len(IsValidPath()) > 2:
+	var path = IsValidPath()
+	if len(path) > 2:
 		if !Global.presetsWork.has(Global.presetSelected.text):
 			Global.presetsWork[Global.presetSelected.text] = []
-		Global.presetsWork[Global.presetSelected.text] = connections
+		Global.presetsWork[Global.presetSelected.text] = path
 
 	
 func _on_disconnection_request(from_node, from_port, to_node, to_port):
@@ -60,9 +61,10 @@ func _on_disconnection_request(from_node, from_port, to_node, to_port):
 	# Supprime la connexion visuelle dans le GraphEdit
 	disconnect_node(from_node, from_port, to_node, to_port)
 	# Met à jour Global.presetsWork
-	if len(IsValidPath()) > 2:
+	var path = IsValidPath()
+	if len(path) > 2:
 		if Global.presetsWork.has(Global.presetSelected.text):
-			Global.presetsWork[Global.presetSelected.text] = connections
+			Global.presetsWork[Global.presetSelected.text] = path
 
 	
 

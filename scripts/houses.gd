@@ -8,6 +8,8 @@ extends Panel
 @onready var input_fieldModify = $MarginContainer2/ModifyName/PopupModify/VBoxContainer/LineEdit
 @onready var ok_buttonModify = $MarginContainer2/ModifyName/PopupModify/VBoxContainer/OkModify
 @onready var allHousesButtons = $AllHouses
+@onready var NPCManager = $"../../../NPCManager"
+@onready var NPCs = $"../../../NPCs"
 
 var buttons = []
 
@@ -52,7 +54,6 @@ func updatePresets():
 				print(Global.presetsWork.keys())
 				popup.add_item(preset)
 				if popup.name == preset:
-					print(popup.name, "  ", preset)
 					popup.set_item_disabled(i,true)
 					disabled = true
 					presetName = popup.name
@@ -69,6 +70,11 @@ func _on_house_button_pressed(button):
 	for child in details.get_children():
 		if child.is_class('MenuBar'):
 			if child.name == button.name:
+				child.set_visible(true)
+			else:
+				child.set_visible(false)
+		if child.is_class('Button'):
+			if child.name == "start_" + button.name:
 				child.set_visible(true)
 			else:
 				child.set_visible(false)
@@ -114,6 +120,18 @@ func _on_preset_id_pressed(id) -> void:
 				else:
 					popup.set_item_disabled(i,false)
 	if itemSelected == "None":
+		details.get_node("start_" + Global.houseSelected.name).disabled = true
 		Global.presetsHouses[Global.houseSelected.name] = null
 	else:
+		details.get_node("start_" + Global.houseSelected.name).disabled = false
 		Global.presetsHouses[Global.houseSelected.name] = itemSelected
+
+
+func _on_start_button_pressed(StartWorkButton):
+	var house_name = StartWorkButton.name.substr(6, StartWorkButton.name.length() - 6)
+	if !Global.isNPCWorking.has(house_name):
+		Global.isNPCWorking[house_name] = true
+	Global.isNPCWorking[house_name] = true
+	for child in NPCs.get_children():
+		if child.name =="FellowNPC_"+ house_name:
+			NPCManager.AddCustomTask(child)
