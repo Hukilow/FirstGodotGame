@@ -59,15 +59,29 @@ func _process(delta: float) -> void:
 				
 				var StartWorkButton = Button.new()
 				StartWorkButton.name = "start_" + house_name
-				StartWorkButton.anchor_left = 0.88
+				StartWorkButton.anchor_left = 0.83
 				StartWorkButton.anchor_top = 0.85
-				StartWorkButton.anchor_right = 0.94
+				StartWorkButton.anchor_right = 0.88
 				StartWorkButton.anchor_bottom = 0.93
 				StartWorkButton.disabled = true
 				StartWorkButton.visible = false
 				StartWorkButton.icon = load("res://assets/icons/Asset 84.png")
 				StartWorkButton.expand_icon = true
 				StartWorkButton.connect("pressed", houses._on_start_button_pressed.bind(StartWorkButton))
+				
+				var PauseWorkButton = Button.new()
+				PauseWorkButton.name = "pause_" + house_name
+				PauseWorkButton.anchor_left = 0.90
+				PauseWorkButton.anchor_top = 0.85
+				PauseWorkButton.anchor_right = 0.95
+				PauseWorkButton.anchor_bottom = 0.93
+				PauseWorkButton.disabled = true
+				PauseWorkButton.visible = false
+				PauseWorkButton.icon = load("res://assets/icons/Asset 80.png")
+				PauseWorkButton.expand_icon = true
+				PauseWorkButton.connect("pressed", houses._on_start_button_pressed.bind(PauseWorkButton))
+				
+				housesDetails.add_child(PauseWorkButton)
 				housesDetails.add_child(StartWorkButton)
 				
 				
@@ -83,6 +97,7 @@ func _process(delta: float) -> void:
 				if !Global.isNPCWorking.has(house_name):
 					Global.isNPCWorking[house_name] = false
 				Global.isNPCWorking[house_name] = false
+				houses.UpdateStartAndPauseButton("none")
 			buildSelected = null
 			
 func FindNameForHouse() -> String:
