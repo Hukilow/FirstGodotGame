@@ -96,6 +96,20 @@ func CreateCustomTask(nodes):
 				subTask.taskType = TaskType.Harvest
 				subTask.targetItem = GetCurrentSubTask().targetItem
 				subTasks.append(subTask)
+			'PickUp':
+				subTask = Task.new()
+				subTask.taskType = TaskType.FindItem
+				match nodes[node+1]:
+					'Log':
+						subTask.targetItemType = ItemManager.ItemCategory.WOOD
+				subTasks.append(subTask)
+				subTask = Task.new()
+				subTask.taskType = TaskType.WalkTo
+				subTasks.append(subTask)
+				subTask = Task.new()
+				subTask.taskType = TaskType.PickUp
+				subTask.targetItem = GetCurrentSubTask().targetItem
+				subTasks.append(subTask)
 	print(subTasks)
 				
 				

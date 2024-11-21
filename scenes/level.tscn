@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://7ue0q13ko71i"]
+[gd_scene load_steps=43 format=4 uid="uid://7ue0q13ko71i"]
 
 [ext_resource type="Script" path="res://scripts/level.gd" id="1_0wyc1"]
 [ext_resource type="Texture2D" uid="uid://debw8ltrmpi4o" path="res://assets/tilemap/Solaria Demo Tiles.png" id="2_uxpwh"]
@@ -25,8 +25,11 @@
 [ext_resource type="Script" path="res://scripts/presets.gd" id="18_uwiev"]
 [ext_resource type="Script" path="res://scripts/nodes.gd" id="21_jxi5f"]
 [ext_resource type="Texture2D" uid="uid://bujo1aorl6tj1" path="res://assets/icons/Asset 16.png" id="21_kt5ht"]
-[ext_resource type="Script" path="res://scripts/all_nodes.gd" id="22_cwfch"]
+[ext_resource type="Script" path="res://scripts/all_node.gd" id="22_cwfch"]
+[ext_resource type="Script" path="res://scripts/manageNodePages.gd" id="23_n3xoo"]
 [ext_resource type="Texture2D" uid="uid://cyhdddnrxwpde" path="res://assets/icons/Asset 83.png" id="25_q874s"]
+[ext_resource type="Texture2D" uid="uid://cwt0os4rj4qo8" path="res://assets/icons/Asset 69.png" id="26_1a1ml"]
+[ext_resource type="Texture2D" uid="uid://dvqg7fj3mlyv2" path="res://assets/icons/Asset 84.png" id="26_r7ta1"]
 [ext_resource type="Texture2D" uid="uid://df38jcjlp47a" path="res://assets/icons/Asset 86.png" id="27_2ouh8"]
 [ext_resource type="Script" path="res://scripts/graph_edit.gd" id="28_yb0dx"]
 
@@ -508,12 +511,16 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 script/source = "extends Panel
 "
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ttku"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_e8bt7"]
 atlas = ExtResource("2_uxpwh")
 region = Rect2(112, 48, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hm1k"]
+atlas = ExtResource("3_prvk5")
+region = Rect2(175.894, 32.2136, 32.5897, 15.7365)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ttku"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0wyc1")
@@ -1010,7 +1017,6 @@ anchor_bottom = 0.11
 text = "Preset :"
 
 [node name="Work" type="Panel" parent="UI"]
-visible = false
 anchors_preset = -1
 anchor_left = 0.1
 anchor_top = 0.1
@@ -1018,6 +1024,391 @@ anchor_right = 0.9
 anchor_bottom = 0.85
 script = SubResource("GDScript_xmc2v")
 metadata/_edit_use_anchors_ = true
+
+[node name="NodesPages" type="PanelContainer" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.4
+anchor_bottom = 1.0
+script = ExtResource("23_n3xoo")
+
+[node name="NodesP1" type="Panel" parent="UI/Work/NodesPages"]
+layout_mode = 2
+script = ExtResource("21_jxi5f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Work/NodesPages/NodesP1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.4
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer"]
+layout_mode = 2
+offset_right = 69.0
+offset_bottom = 90.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Start"
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Start"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Start"]
+layout_mode = 2
+texture = ExtResource("25_q874s")
+expand_mode = 4
+
+[node name="Find" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer"]
+layout_mode = 2
+offset_top = 94.0
+offset_right = 69.0
+offset_bottom = 184.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Find"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Find"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Find"]
+layout_mode = 2
+texture = ExtResource("21_kt5ht")
+expand_mode = 4
+
+[node name="Harvest" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer"]
+layout_mode = 2
+offset_top = 188.0
+offset_right = 69.0
+offset_bottom = 278.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Harvest"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Harvest"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Harvest"]
+layout_mode = 2
+texture = ExtResource("21_kt5ht")
+expand_mode = 4
+
+[node name="Deposit" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer"]
+layout_mode = 2
+offset_top = 282.0
+offset_right = 69.0
+offset_bottom = 372.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Deposit"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Deposit"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer/Deposit"]
+layout_mode = 2
+texture = ExtResource("21_kt5ht")
+expand_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Work/NodesPages/NodesP1"]
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 19
+theme_override_constants/margin_top = 6
+
+[node name="Label" type="Label" parent="UI/Work/NodesPages/NodesP1/MarginContainer"]
+layout_mode = 2
+text = "Nodes"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Work/NodesPages/NodesP1"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="End" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2"]
+layout_mode = 2
+offset_right = 62.0
+offset_bottom = 83.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "End"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2/End"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2/End"]
+layout_mode = 2
+texture = ExtResource("27_2ouh8")
+expand_mode = 4
+
+[node name="PickUp" type="GraphNode" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2"]
+layout_mode = 2
+offset_top = 87.0
+offset_right = 62.0
+offset_bottom = 170.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "PickUp"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2/PickUp"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP1/VBoxContainer2/PickUp"]
+layout_mode = 2
+texture = ExtResource("26_1a1ml")
+expand_mode = 4
+
+[node name="NodesP2" type="Panel" parent="UI/Work/NodesPages"]
+visible = false
+layout_mode = 2
+script = ExtResource("21_jxi5f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Work/NodesPages/NodesP2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.4
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SmallTree" type="GraphNode" parent="UI/Work/NodesPages/NodesP2/VBoxContainer"]
+layout_mode = 2
+offset_right = 67.0
+offset_bottom = 89.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "SmTree"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP2/VBoxContainer/SmallTree"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP2/VBoxContainer/SmallTree"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_e8bt7")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Work/NodesPages/NodesP2"]
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 19
+theme_override_constants/margin_top = 6
+
+[node name="Label" type="Label" parent="UI/Work/NodesPages/NodesP2/MarginContainer"]
+layout_mode = 2
+text = "Nodes"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Work/NodesPages/NodesP2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.6
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Log" type="GraphNode" parent="UI/Work/NodesPages/NodesP2/VBoxContainer2"]
+layout_mode = 2
+offset_right = 68.0
+offset_bottom = 72.0
+theme_override_constants/port_h_offset = 0
+position_offset = Vector2(20, 20)
+title = "Log"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+script = ExtResource("22_cwfch")
+
+[node name="Control" type="Control" parent="UI/Work/NodesPages/NodesP2/VBoxContainer2/Log"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Work/NodesPages/NodesP2/VBoxContainer2/Log"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_5hm1k")
+
+[node name="PreviousPage" type="Button" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35
+anchor_top = 0.075
+anchor_right = 0.38
+anchor_bottom = 0.142
+rotation = 3.14159
+disabled = true
+icon = ExtResource("26_r7ta1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="NextPage" type="Button" parent="UI/Work"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.36
+anchor_top = 0.01
+anchor_right = 0.39
+anchor_bottom = 0.075
+icon = ExtResource("26_r7ta1")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Presets" type="Panel" parent="UI/Work"]
 layout_mode = 1
@@ -1109,258 +1500,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ttku")
-
-[node name="Nodes" type="Panel" parent="UI/Work"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.2
-anchor_right = 0.4
-anchor_bottom = 1.0
-script = ExtResource("21_jxi5f")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Work/Nodes"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.4
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Start" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
-layout_mode = 2
-offset_right = 69.0
-offset_bottom = 90.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "Start"
-slot/0/left_enabled = false
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Start"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Start"]
-layout_mode = 2
-texture = ExtResource("25_q874s")
-expand_mode = 4
-
-[node name="Find" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
-layout_mode = 2
-offset_top = 94.0
-offset_right = 69.0
-offset_bottom = 184.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "Find"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Find"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Find"]
-layout_mode = 2
-texture = ExtResource("21_kt5ht")
-expand_mode = 4
-
-[node name="Harvest" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
-layout_mode = 2
-offset_top = 188.0
-offset_right = 69.0
-offset_bottom = 278.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "Harvest"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Harvest"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Harvest"]
-layout_mode = 2
-texture = ExtResource("21_kt5ht")
-expand_mode = 4
-
-[node name="Deposit" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer"]
-layout_mode = 2
-offset_top = 282.0
-offset_right = 69.0
-offset_bottom = 372.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "Deposit"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer/Deposit"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer/Deposit"]
-layout_mode = 2
-texture = ExtResource("21_kt5ht")
-expand_mode = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Work/Nodes"]
-layout_mode = 1
-offset_right = 50.0
-offset_bottom = 40.0
-theme_override_constants/margin_left = 19
-theme_override_constants/margin_top = 6
-
-[node name="Label" type="Label" parent="UI/Work/Nodes/MarginContainer"]
-layout_mode = 2
-text = "Nodes"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/Work/Nodes"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.6
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.95
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="End" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer2"]
-layout_mode = 2
-offset_right = 67.0
-offset_bottom = 88.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "End"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = false
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer2/End"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer2/End"]
-layout_mode = 2
-texture = ExtResource("27_2ouh8")
-expand_mode = 4
-
-[node name="SmallTree" type="GraphNode" parent="UI/Work/Nodes/VBoxContainer2"]
-layout_mode = 2
-offset_top = 92.0
-offset_right = 67.0
-offset_bottom = 181.0
-theme_override_constants/port_h_offset = 0
-position_offset = Vector2(20, 20)
-title = "SmTree"
-slot/0/left_enabled = true
-slot/0/left_type = 0
-slot/0/left_color = Color(1, 1, 1, 1)
-slot/0/left_icon = null
-slot/0/right_enabled = true
-slot/0/right_type = 0
-slot/0/right_color = Color(1, 1, 1, 1)
-slot/0/right_icon = null
-slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-script = ExtResource("22_cwfch")
-
-[node name="Control" type="Control" parent="UI/Work/Nodes/VBoxContainer2/SmallTree"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/Work/Nodes/VBoxContainer2/SmallTree"]
-layout_mode = 2
-texture = SubResource("AtlasTexture_e8bt7")
 
 [node name="Graphs" type="Panel" parent="UI/Work"]
 layout_mode = 1
@@ -1527,13 +1666,17 @@ expand_icon = true
 [connection signal="pressed" from="UI/Build/warehouse" to="Player_build" method="_on_warehouse_pressed"]
 [connection signal="pressed" from="UI/Assign/Houses/MarginContainer2/ModifyName" to="UI/Assign/Houses" method="_on_modify_name_pressed"]
 [connection signal="pressed" from="UI/Assign/Houses/MarginContainer2/ModifyName/PopupModify/VBoxContainer/OkModify" to="UI/Assign/Houses" method="_on_ok_modify_pressed"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer/Start" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer/Find" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer/Harvest" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer/Deposit" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer2/End" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP1/VBoxContainer2/PickUp" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP2/VBoxContainer/SmallTree" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="click" from="UI/Work/NodesPages/NodesP2/VBoxContainer2/Log" to="UI/Work/NodesPages/NodesP1" method="_on_node_click"]
+[connection signal="pressed" from="UI/Work/PreviousPage" to="UI/Work/NodesPages" method="_on_previous_page_pressed"]
+[connection signal="pressed" from="UI/Work/NextPage" to="UI/Work/NodesPages" method="_on_next_page_pressed"]
 [connection signal="pressed" from="UI/Work/Presets/MarginContainer2/Add" to="UI/Work/Presets" method="_on_add_pressed"]
 [connection signal="pressed" from="UI/Work/Presets/MarginContainer3/Delete" to="UI/Work/Presets" method="_on_delete_pressed"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Start" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Find" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Harvest" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer/Deposit" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer2/End" to="UI/Work/Nodes" method="_on_node_click"]
-[connection signal="click" from="UI/Work/Nodes/VBoxContainer2/SmallTree" to="UI/Work/Nodes" method="_on_node_click"]
 [connection signal="pressed" from="UI/Research/btn_buildings" to="UI/Research" method="_on_btn_buildings_pressed"]
 [connection signal="pressed" from="UI/Research/btn_skill" to="UI/Research" method="_on_btn_skill_pressed"]

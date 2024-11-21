@@ -6,11 +6,19 @@ extends GraphEdit
 # Dictionnaire pour stocker les connexions
 var connections = {}
 
+@onready var Nodes = $"../../NodesPages/NodesP1"
 @onready var validRect = $"../../ImgValid/ValidRect"
 @onready var validLabel = $"../../LabelValid/ValidLabel"
 
 var start_node = null
 var end_node = null
+
+var pathIsValid = false
+
+var pickableItems = ["SmTree", "Rock"]
+var harvestableItems = ["Log"]
+
+
 func _ready():
 	# Connecter le signal de connexion
 	connect("connection_request", _on_connection_request)
@@ -44,7 +52,7 @@ func _on_connection_request(from_node, from_port, to_node, to_port):
 	# Crée la connexion visuelle dans le GraphEdit
 	connect_node(from_node, from_port, to_node, to_port)
 	var path = IsValidPath()
-	if len(path) > 2:
+	if pathIsValid:
 		if !Global.presetsWork.has(Global.presetSelected.text):
 			Global.presetsWork[Global.presetSelected.text] = []
 		Global.presetsWork[Global.presetSelected.text] = path
@@ -62,7 +70,7 @@ func _on_disconnection_request(from_node, from_port, to_node, to_port):
 	disconnect_node(from_node, from_port, to_node, to_port)
 	# Met à jour Global.presetsWork
 	var path = IsValidPath()
-	if len(path) > 2:
+	if pathIsValid:
 		if Global.presetsWork.has(Global.presetSelected.text):
 			Global.presetsWork[Global.presetSelected.text] = path
 
@@ -76,8 +84,7 @@ func IsValidPath() -> Array:
 
 	# On commence par vérifier si "Start" existe
 	if !connections.has(current_node):
-		validLabel.text = "Not valid"
-		validRect.color = Color.RED
+		PathIsValid(false)
 		return []
 
 	# Parcours du chemin à partir de "Start"
@@ -89,8 +96,7 @@ func IsValidPath() -> Array:
 
 			# Empêche les boucles infinies
 			if next_node in visited:
-				validLabel.text = "Not valid"
-				validRect.color = Color.RED
+				PathIsValid(false)
 				return []
 
 			# Ajoute au chemin et passe au nœud suivant
@@ -99,26 +105,46 @@ func IsValidPath() -> Array:
 			current_node = next_node
 		else:
 			# Si aucun chemin valide n'est trouvé
-			validLabel.text = "Not valid"
-			validRect.color = Color.RED
+			PathIsValid(false)
 			return []
 
 	# Ajoute "End" au chemin une fois terminé
 	path.append("End")
-
+	
+	#Vérification des bonnes relations (ex : PickUp -> Log != Tree)
+	for node in len(path):
+		if path[node] == "Find" and !harvestableItems.has(path[node+1]) and !pickableItems.has(path[node+1]):
+			PathIsValid(false)
+			return []
+		if path[node] == "Harvest" and !harvestableItems.has(path[node-1]):
+			PathIsValid(false)
+			return []
+		if path[node] == "PickUp" and !pickableItems.has(path[node+1]):
+			PathIsValid(false)
+			return []
+			
+	print(path)
 	if len(path) > 2:
+		PathIsValid(true)
+	else:
+		PathIsValid(false)
+	return path
+	
+func PathIsValid(validity) -> void:
+	pathIsValid = validity
+	if validity:
 		validLabel.text = "Valid"
 		validRect.color = Color.GREEN
-		return path
-	validLabel.text = "Not valid"
-	validRect.color = Color.RED
-	return []
-
-
-
+	else:
+		validLabel.text = "Not valid"
+		validRect.color = Color.RED
 
 
 func _on_Graph_delete_nodes_request(nodes):
+	if nodes.has("Start"):
+		Nodes.hasStartNode = false
+	if nodes.has("End"):
+		Nodes.hasEndNode = false
 	for child in get_children():
 		if child.name in nodes:
 			child.queue_free()

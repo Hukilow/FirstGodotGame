@@ -84,7 +84,6 @@ func _on_ok_pressed():
 		buttons.append(new_button)
 		Global.presetsWork[user_input] = []
 		arrangeButtons()
-		print("add ",Global.presetsWork)
 		
 		var graph := GraphEdit.new()
 		graph.name = "graph_"+ user_input

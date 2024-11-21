@@ -43,12 +43,6 @@ func AddCustomTask(NPC):
 			taskQueue[NPC.name] = null
 		taskQueue[NPC.name] = newTask
 		
-		
-
-
-func work():
-	pass
-
 
 func _on_start_button_pressed() -> void:
 	BeginWork()
