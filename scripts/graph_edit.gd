@@ -142,9 +142,9 @@ func PathIsValid(validity) -> void:
 
 func _on_Graph_delete_nodes_request(nodes):
 	if nodes.has("Start"):
-		Nodes.hasStartNode = false
+		Nodes.hasStartNode[Global.presetSelected.name] = false
 	if nodes.has("End"):
-		Nodes.hasEndNode = false
+		Nodes.hasEndNode[Global.presetSelected.name] = false
 	for child in get_children():
 		if child.name in nodes:
 			child.queue_free()
