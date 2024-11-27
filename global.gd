@@ -22,6 +22,8 @@ var presetsWork = {}
 #Contient le preset de chaque maison
 var presetsHouses = {}
 
+var isNPCWorking = {}
+
 func GetPresetsList():
 	var all = []
 	for preset in presetsWork.keys():

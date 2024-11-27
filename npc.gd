@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@onready var terrain := $"../TileMapLayer"
-@onready var pathfinding := $"../Pathfinding"
+@onready var terrain := $"../../TileMapLayer1"
+@onready var pathfinding := $"../../Pathfinding"
 @onready var animation = $AnimatedSprite2D
-@onready var itemManager = $"../ItemManager"
+@onready var itemManager = $"../../ItemManager"
 const SPEED = 300.0
 var path = []
 

@@ -5,9 +5,11 @@ extends Node2D
 var house_scene : PackedScene = load("res://building/house.tscn")
 var scierie_scene : PackedScene = load("res://building/scierie.tscn")
 var warehouse_scene : PackedScene = load("res://building/warehouse.tscn")
+var fellowNPC_scene : PackedScene = load("res://scenes/fellownpc.tscn")
 @onready var houses = $"../UI/Assign/Houses"
 @onready var allHouses = $"../UI/Assign/Houses/AllHouses"
 @onready var housesDetails = $"../UI/Assign/Details"
+@onready var NPCs = $"../NPCs"
 var isPlacing : bool
 var delay = 5
 var object = null
@@ -20,6 +22,7 @@ func StartPlacing(new_object):
 	object = new_object
 	isPlacing = true
 	buildSelected = new_object
+	Global.inMenu = false
 	
 
 func _process(delta: float) -> void:
@@ -54,10 +57,47 @@ func _process(delta: float) -> void:
 				menubar.set_visible(false)
 				housesDetails.add_child(menubar)
 				
+				var StartWorkButton = Button.new()
+				StartWorkButton.name = "start_" + house_name
+				StartWorkButton.anchor_left = 0.83
+				StartWorkButton.anchor_top = 0.85
+				StartWorkButton.anchor_right = 0.88
+				StartWorkButton.anchor_bottom = 0.93
+				StartWorkButton.disabled = true
+				StartWorkButton.visible = false
+				StartWorkButton.icon = load("res://assets/icons/Asset 84.png")
+				StartWorkButton.expand_icon = true
+				StartWorkButton.connect("pressed", houses._on_start_button_pressed.bind(StartWorkButton))
+				
+				var PauseWorkButton = Button.new()
+				PauseWorkButton.name = "pause_" + house_name
+				PauseWorkButton.anchor_left = 0.90
+				PauseWorkButton.anchor_top = 0.85
+				PauseWorkButton.anchor_right = 0.95
+				PauseWorkButton.anchor_bottom = 0.93
+				PauseWorkButton.disabled = true
+				PauseWorkButton.visible = false
+				PauseWorkButton.icon = load("res://assets/icons/Asset 80.png")
+				PauseWorkButton.expand_icon = true
+				PauseWorkButton.connect("pressed", houses._on_start_button_pressed.bind(PauseWorkButton))
+				
+				housesDetails.add_child(PauseWorkButton)
+				housesDetails.add_child(StartWorkButton)
+				
+				
 				houses.updatePresets()
 				Global.houseSelected = new_button
 				if !Global.presetsHouses.has(house_name):
 					Global.presetsHouses[house_name] = null
+					
+				var fellowNPC = fellowNPC_scene.instantiate()
+				fellowNPC.name = "FellowNPC_" + house_name
+				fellowNPC.position = Vector2(buildSelected.position.x,buildSelected.position.y+25)
+				NPCs.add_child(fellowNPC)
+				if !Global.isNPCWorking.has(house_name):
+					Global.isNPCWorking[house_name] = false
+				Global.isNPCWorking[house_name] = false
+				houses.UpdateStartAndPauseButton("none")
 			buildSelected = null
 			
 func FindNameForHouse() -> String:

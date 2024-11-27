@@ -1,5 +1,7 @@
 extends Node
 
+class_name ItemManager
+
 enum ItemCategory {ITEM = 0, WOOD = 1, FOOD = 2, ROCK = 3}
 var itemCategories = ["Item","Trees","Food", "Rocks"]
 
@@ -7,6 +9,8 @@ var itemPrototypes = {}
 var itemPickable = []
 
 var itemsInWorld = []
+
+var itemsAlreadyTargetted = []
 
 var width := Global.width
 var height := Global.height
@@ -48,6 +52,8 @@ static func WorldToMapPosition(worldPos : Vector2) -> Vector2i:
 	return Vector2i(worldPos.x / 16, worldPos.y / 16)
 	
 func RemoveItemFromWorld(item):
+	if itemsAlreadyTargetted.has(item):
+		itemsAlreadyTargetted.erase(item)
 	remove_child(item)
 	itemsInWorld.erase(item)
 
@@ -120,7 +126,7 @@ func FindNearestItem(itemCategory: ItemCategory, worldPos: Vector2):
 	var NearestItem = null
 	var NearestDistance = 999999999999999
 	for item in itemsInWorld:
-		if IsItemInCategory(item, itemCategory):
+		if IsItemInCategory(item, itemCategory) and !itemsAlreadyTargetted.has(item):
 			var distance = worldPos.distance_to(item.position)
 			if NearestItem == null:
 				NearestItem = item
@@ -129,6 +135,7 @@ func FindNearestItem(itemCategory: ItemCategory, worldPos: Vector2):
 			if distance < NearestDistance:
 				NearestItem = item
 				NearestDistance = distance
+	itemsAlreadyTargetted.append(NearestItem)
 	return NearestItem
 				
 			

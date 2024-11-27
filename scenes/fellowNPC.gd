@@ -2,7 +2,7 @@ extends Node
 
 @onready var taskManager = $"../../../TaskManager"
 @onready var itemManager = $"../../../ItemManager"
-
+@onready var NPCManager = $"../../../NPCManager"
 @onready var NPC = $".."
 
 
@@ -14,13 +14,14 @@ var currentTask : Task = null
 
 var harvestSkill : float = 1
 
-var inHand;
 
 func _process(delta):
-	if currentTask != null:
-		DoCurrentTask(delta)
-	else:
-		currentTask = taskManager.RequestTask()
+	if Global.isNPCWorking[get_parent().name.substr(10, get_parent().name.length() - 10)]:
+
+		if currentTask != null:
+			DoCurrentTask(delta)
+		else:
+			currentTask = NPCManager.RequestTask(get_parent())
 		
 func OnPickupItem(item):
 	if NPC.CanTakeItem(item):

@@ -9,6 +9,7 @@ extends Panel
 @onready var input_field = $MarginContainer2/Popup/VBoxContainer/LineEdit
 @onready var ok_button = $MarginContainer2/Popup/VBoxContainer/Button
 @onready var houses = $"../../Assign/Houses"
+@onready var Nodes = $"../NodesPages/NodesP1"
 var scriptgraph = load("res://scripts/graph_edit.gd")
 var buttons = []
 
@@ -53,6 +54,8 @@ func _on_delete_pressed() -> void:
 	houses.updatePresets()
 	buttons.erase(Global.presetSelected)
 	Global.presetSelected.queue_free()
+	Nodes.hasEndNode.erase(Global.presetSelected.name)
+	Nodes.hasStartNode.erase(Global.presetSelected.name)
 	arrangeButtons()
 
 # Exemple de callback pour le nouveau bouton
@@ -84,7 +87,6 @@ func _on_ok_pressed():
 		buttons.append(new_button)
 		Global.presetsWork[user_input] = []
 		arrangeButtons()
-		print("add ",Global.presetsWork)
 		
 		var graph := GraphEdit.new()
 		graph.name = "graph_"+ user_input
@@ -97,5 +99,13 @@ func _on_ok_pressed():
 		graph.minimap_enabled = false
 		graph.script = scriptgraph
 		graphs.add_child(graph)
+		
+		if !Nodes.hasStartNode.has(new_button.name):
+			Nodes.hasStartNode[new_button.name] = false
+		if !Nodes.hasEndNode.has(new_button.name):
+			Nodes.hasEndNode[new_button.name] = false
+			
+		print(Nodes.hasStartNode)
+				
 		
 		houses.updatePresets()
