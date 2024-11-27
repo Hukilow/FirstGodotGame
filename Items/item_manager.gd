@@ -11,7 +11,6 @@ var itemPickable = []
 var itemsInWorld = []
 
 var itemsAlreadyTargetted = []
-
 var width := Global.width
 var height := Global.height
 @onready var tilemap = $"../TileMapLayer"
